@@ -43,9 +43,10 @@
             // userlistbutton
             // 
             this.userlistbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.userlistbutton.Location = new System.Drawing.Point(22, 42);
+            this.userlistbutton.Location = new System.Drawing.Point(16, 34);
+            this.userlistbutton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.userlistbutton.Name = "userlistbutton";
-            this.userlistbutton.Size = new System.Drawing.Size(158, 56);
+            this.userlistbutton.Size = new System.Drawing.Size(118, 46);
             this.userlistbutton.TabIndex = 0;
             this.userlistbutton.Text = "Список пользователей";
             this.userlistbutton.UseVisualStyleBackColor = true;
@@ -54,10 +55,10 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(199, 81);
+            this.listBox1.Location = new System.Drawing.Point(149, 66);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(414, 212);
+            this.listBox1.Size = new System.Drawing.Size(312, 173);
             this.listBox1.TabIndex = 1;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
@@ -65,9 +66,10 @@
             // editbutton
             // 
             this.editbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.editbutton.Location = new System.Drawing.Point(199, 341);
+            this.editbutton.Location = new System.Drawing.Point(149, 277);
+            this.editbutton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.editbutton.Name = "editbutton";
-            this.editbutton.Size = new System.Drawing.Size(108, 41);
+            this.editbutton.Size = new System.Drawing.Size(81, 33);
             this.editbutton.TabIndex = 2;
             this.editbutton.Text = "Изменить";
             this.editbutton.UseVisualStyleBackColor = true;
@@ -76,9 +78,10 @@
             // addbutton
             // 
             this.addbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.addbutton.Location = new System.Drawing.Point(352, 343);
+            this.addbutton.Location = new System.Drawing.Point(264, 279);
+            this.addbutton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.addbutton.Name = "addbutton";
-            this.addbutton.Size = new System.Drawing.Size(117, 39);
+            this.addbutton.Size = new System.Drawing.Size(88, 32);
             this.addbutton.TabIndex = 3;
             this.addbutton.Text = "Добавить";
             this.addbutton.UseVisualStyleBackColor = true;
@@ -87,9 +90,10 @@
             // deletebutton
             // 
             this.deletebutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.deletebutton.Location = new System.Drawing.Point(503, 340);
+            this.deletebutton.Location = new System.Drawing.Point(377, 276);
+            this.deletebutton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.deletebutton.Name = "deletebutton";
-            this.deletebutton.Size = new System.Drawing.Size(110, 40);
+            this.deletebutton.Size = new System.Drawing.Size(82, 32);
             this.deletebutton.TabIndex = 4;
             this.deletebutton.Text = "Отметить";
             this.deletebutton.UseVisualStyleBackColor = true;
@@ -97,9 +101,10 @@
             // 
             // buttonshowall
             // 
-            this.buttonshowall.Location = new System.Drawing.Point(647, 245);
+            this.buttonshowall.Location = new System.Drawing.Point(485, 199);
+            this.buttonshowall.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonshowall.Name = "buttonshowall";
-            this.buttonshowall.Size = new System.Drawing.Size(122, 48);
+            this.buttonshowall.Size = new System.Drawing.Size(92, 39);
             this.buttonshowall.TabIndex = 5;
             this.buttonshowall.Text = "Отобразить всё";
             this.buttonshowall.UseVisualStyleBackColor = true;
@@ -107,9 +112,10 @@
             // 
             // buttonnotcomplete
             // 
-            this.buttonnotcomplete.Location = new System.Drawing.Point(647, 168);
+            this.buttonnotcomplete.Location = new System.Drawing.Point(485, 136);
+            this.buttonnotcomplete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonnotcomplete.Name = "buttonnotcomplete";
-            this.buttonnotcomplete.Size = new System.Drawing.Size(122, 52);
+            this.buttonnotcomplete.Size = new System.Drawing.Size(92, 42);
             this.buttonnotcomplete.TabIndex = 6;
             this.buttonnotcomplete.Text = "Отобразить невыполненные";
             this.buttonnotcomplete.UseVisualStyleBackColor = true;
@@ -117,9 +123,10 @@
             // 
             // buttoncomplete
             // 
-            this.buttoncomplete.Location = new System.Drawing.Point(647, 81);
+            this.buttoncomplete.Location = new System.Drawing.Point(485, 66);
+            this.buttoncomplete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttoncomplete.Name = "buttoncomplete";
-            this.buttoncomplete.Size = new System.Drawing.Size(122, 57);
+            this.buttoncomplete.Size = new System.Drawing.Size(92, 46);
             this.buttoncomplete.TabIndex = 7;
             this.buttoncomplete.Text = "Отобразить выполненные";
             this.buttoncomplete.UseVisualStyleBackColor = true;
@@ -129,18 +136,20 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.label1.Location = new System.Drawing.Point(609, 23);
+            this.label1.Location = new System.Drawing.Point(482, 22);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 20);
+            this.label1.Size = new System.Drawing.Size(46, 17);
             this.label1.TabIndex = 8;
             this.label1.Text = "label1";
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.button1.Location = new System.Drawing.Point(647, 340);
+            this.button1.Location = new System.Drawing.Point(485, 276);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 40);
+            this.button1.Size = new System.Drawing.Size(82, 32);
             this.button1.TabIndex = 9;
             this.button1.Text = "Удалить";
             this.button1.UseVisualStyleBackColor = true;
@@ -148,9 +157,9 @@
             // 
             // adminform
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttoncomplete);
@@ -161,6 +170,7 @@
             this.Controls.Add(this.editbutton);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.userlistbutton);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "adminform";
             this.Text = "adminform";
             this.Load += new System.EventHandler(this.adminform_Load);

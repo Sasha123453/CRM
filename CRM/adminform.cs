@@ -99,6 +99,7 @@ namespace CRM
             Task task = listBox1.SelectedItem as Task;
             db.Tasks.Remove(task);
             db.SaveChanges();
+            Update();
         }
     }
 }
