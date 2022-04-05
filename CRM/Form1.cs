@@ -49,6 +49,7 @@ namespace CRM
                     Form form = new userform(authUser);
                     Hide();
                     form.ShowDialog();
+                    this.Close();
                 }
             }
             else MessageBox.Show("Неверный логин или пароль");

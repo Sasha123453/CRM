@@ -46,7 +46,10 @@ namespace CRM
 
         private void solutionbutton_Click(object sender, EventArgs e)
         {
-
+            if (listBox1.SelectedIndex == -1) return;
+            Task task = listBox1.SelectedItem as Task;
+            task.Iscompleted = richTextBox1.Text;
+            Update();
         }
     }
 }
