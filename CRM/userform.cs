@@ -20,6 +20,7 @@ namespace CRM
             label1.Text = user.Login;
             db = new ApplicationContext();
             tasks = new List<Task>();
+            Update();
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
@@ -49,6 +50,7 @@ namespace CRM
             if (listBox1.SelectedIndex == -1) return;
             Task task = listBox1.SelectedItem as Task;
             task.Iscompleted = richTextBox1.Text;
+            db.SaveChanges();
             Update();
         }
     }
