@@ -31,8 +31,8 @@ namespace CRM
         void Update()
         {
             tasks = db.Tasks.ToList();
-            if (flag == 1) tasks = tasks.FindAll(x => x.Iscompleted != null);
-            if (flag == 2) tasks = tasks.FindAll(x => x.Iscompleted == null);
+            if (flag == 1) tasks = tasks.FindAll(x => x.Iscompleted != 0);
+            if (flag == 2) tasks = tasks.FindAll(x => x.Iscompleted == 0);
             listBox1.DataSource = tasks;
         }
 
@@ -64,7 +64,7 @@ namespace CRM
         {
             if (listBox1.SelectedIndex == -1) return;
             Task task = listBox1.SelectedItem as Task;
-            task.Iscompleted = "";
+            task.Iscompleted = 1;
             db.SaveChanges();
             Update();
         }
@@ -100,6 +100,14 @@ namespace CRM
             db.Tasks.Remove(task);
             db.SaveChanges();
             Update();
+        }
+
+        private void exitbutton_Click(object sender, EventArgs e)
+        {
+            Form form = new Form1();
+            this.Close();
+            this.Visible = false;
+            form.ShowDialog();
         }
     }
 }

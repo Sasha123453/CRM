@@ -38,13 +38,14 @@
             this.buttoncomplete = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.exitbutton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // userlistbutton
             // 
             this.userlistbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
             this.userlistbutton.Location = new System.Drawing.Point(16, 34);
-            this.userlistbutton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.userlistbutton.Margin = new System.Windows.Forms.Padding(2);
             this.userlistbutton.Name = "userlistbutton";
             this.userlistbutton.Size = new System.Drawing.Size(118, 46);
             this.userlistbutton.TabIndex = 0;
@@ -56,7 +57,7 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(149, 66);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(312, 173);
             this.listBox1.TabIndex = 1;
@@ -67,7 +68,7 @@
             // 
             this.editbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
             this.editbutton.Location = new System.Drawing.Point(149, 277);
-            this.editbutton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.editbutton.Margin = new System.Windows.Forms.Padding(2);
             this.editbutton.Name = "editbutton";
             this.editbutton.Size = new System.Drawing.Size(81, 33);
             this.editbutton.TabIndex = 2;
@@ -79,7 +80,7 @@
             // 
             this.addbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
             this.addbutton.Location = new System.Drawing.Point(264, 279);
-            this.addbutton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addbutton.Margin = new System.Windows.Forms.Padding(2);
             this.addbutton.Name = "addbutton";
             this.addbutton.Size = new System.Drawing.Size(88, 32);
             this.addbutton.TabIndex = 3;
@@ -91,7 +92,7 @@
             // 
             this.deletebutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
             this.deletebutton.Location = new System.Drawing.Point(377, 276);
-            this.deletebutton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deletebutton.Margin = new System.Windows.Forms.Padding(2);
             this.deletebutton.Name = "deletebutton";
             this.deletebutton.Size = new System.Drawing.Size(82, 32);
             this.deletebutton.TabIndex = 4;
@@ -102,7 +103,7 @@
             // buttonshowall
             // 
             this.buttonshowall.Location = new System.Drawing.Point(485, 199);
-            this.buttonshowall.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonshowall.Margin = new System.Windows.Forms.Padding(2);
             this.buttonshowall.Name = "buttonshowall";
             this.buttonshowall.Size = new System.Drawing.Size(92, 39);
             this.buttonshowall.TabIndex = 5;
@@ -113,7 +114,7 @@
             // buttonnotcomplete
             // 
             this.buttonnotcomplete.Location = new System.Drawing.Point(485, 136);
-            this.buttonnotcomplete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonnotcomplete.Margin = new System.Windows.Forms.Padding(2);
             this.buttonnotcomplete.Name = "buttonnotcomplete";
             this.buttonnotcomplete.Size = new System.Drawing.Size(92, 42);
             this.buttonnotcomplete.TabIndex = 6;
@@ -124,7 +125,7 @@
             // buttoncomplete
             // 
             this.buttoncomplete.Location = new System.Drawing.Point(485, 66);
-            this.buttoncomplete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttoncomplete.Margin = new System.Windows.Forms.Padding(2);
             this.buttoncomplete.Name = "buttoncomplete";
             this.buttoncomplete.Size = new System.Drawing.Size(92, 46);
             this.buttoncomplete.TabIndex = 7;
@@ -147,7 +148,7 @@
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
             this.button1.Location = new System.Drawing.Point(485, 276);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(82, 32);
             this.button1.TabIndex = 9;
@@ -155,11 +156,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // exitbutton
+            // 
+            this.exitbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
+            this.exitbutton.Location = new System.Drawing.Point(16, 203);
+            this.exitbutton.Name = "exitbutton";
+            this.exitbutton.Size = new System.Drawing.Size(116, 36);
+            this.exitbutton.TabIndex = 10;
+            this.exitbutton.Text = "Выйти";
+            this.exitbutton.UseVisualStyleBackColor = true;
+            this.exitbutton.Click += new System.EventHandler(this.exitbutton_Click);
+            // 
             // adminform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(this.exitbutton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttoncomplete);
@@ -170,7 +183,7 @@
             this.Controls.Add(this.editbutton);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.userlistbutton);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "adminform";
             this.Text = "adminform";
             this.Load += new System.EventHandler(this.adminform_Load);
@@ -191,5 +204,6 @@
         private System.Windows.Forms.Button buttoncomplete;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button exitbutton;
     }
 }

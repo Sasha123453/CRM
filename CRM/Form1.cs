@@ -36,7 +36,6 @@ namespace CRM
             }
             if (authUser != null)
             {
-                MessageBox.Show("Вы вошли!");
                 if (authUser.Role == "admin")
                 {
                     Form form = new adminform(authUser);
