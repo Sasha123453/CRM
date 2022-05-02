@@ -43,11 +43,12 @@ namespace CRM
                 tempuser.Friends += user.Login;
                 userquerys.Remove(k);
                 userfriends.Add(k);
+                AddToFriends(user, userfriends);
                 AddToQuerys(user, userquerys);
                 return;
             }
             User tmpuser = listBox1.SelectedItem as User;
-            if (tmpuser.Querys != null && tmpuser.Querys.Split().Contains(user.Login))
+            if (tmpuser.Querys != null && tmpuser.Querys.Split().Contains(user.Login) || tmpuser.Friends != null && tmpuser.Friends.Split().Contains(user.Login))
             {
                 MessageBox.Show("Вы уже отправили запрос этому пользователю");
                 return;
@@ -118,7 +119,7 @@ namespace CRM
             for (int i = 0; i < add.Count; i++)
             {
                 if (i == add.Count - 1) l += add[i];
-                l += add[i] + " ";
+                else l += add[i] + " ";
             }
             us.Querys = l;
             db.SaveChanges();
@@ -129,7 +130,7 @@ namespace CRM
             for (int i = 0; i < add.Count; i++)
             {
                 if (i == add.Count - 1) k += add[i];
-                k += userfriends[i] + " ";
+                else k += userfriends[i] + " ";
             }
             us.Friends = k;
             db.SaveChanges();

@@ -17,19 +17,23 @@ namespace CRM
         int flag = 0;
         List<User> users;
         public int mode;
+        User user = new User();
         string role;
+        List<string> userlist = new List<string>();
         List<string> taskusers = new List<string>();
-        public Users(Task maintask, int mainmode, string us, string mainrole)
+        public Users(Task maintask, int mainmode, string login, string mainrole)
         {
             InitializeComponent();
             db = new ApplicationContext();
             List<User> users = db.Users.ToList();
-            listBox1.DataSource = users;
             task = maintask;
             if (task != null && task.Users != null && task.Users != "") taskusers = task.Users.Split().ToList();
             mode = mainmode;
+            user = db.Users.Where(x => x.Login == login).FirstOrDefault();
             role = mainrole;
+            if (user.Role == "normal" ) userlist = user.Friends.Split().ToList();
             delbutton.Enabled = false;
+            UpdateEdit();
             if (mode == 0)
             {
                 showall.Enabled = false;
@@ -67,7 +71,16 @@ namespace CRM
         {
             if (flag == 0)
             {
+                if (user.Role == "normal")
+                {
+                    List<string> list = userlist;
+                    if (textBox1.Text != "") list = list.FindAll(x => x.Contains(textBox1.Text));
+                    list.Remove(user.Login);
+                    listBox1.DataSource = list;
+                    return;
+                }
                 users = db.Users.ToList();
+                users.Remove(user);
                 if (textBox1.Text != "") users = users.FindAll(x => x.Login.Contains(textBox1.Text));
                 listBox1.DataSource = users;
             }
@@ -98,9 +111,18 @@ namespace CRM
         private void addbutton_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex == -1) return;
-            User tempuser = listBox1.SelectedItem as User;
-            if (taskusers.Contains(tempuser.Login)) return;
-            taskusers.Add(tempuser.Login);
+            if (user.Role != "normal")
+            {
+                User tempuser = listBox1.SelectedItem as User;
+                if (taskusers.Contains(tempuser.Login)) return;
+                taskusers.Add(tempuser.Login);
+            }
+            else
+            {
+                string l = listBox1.SelectedItem as string;
+                if (taskusers.Contains(l)) return;
+                taskusers.Add(l);
+            }
         }
 
         private void delbutton_Click(object sender, EventArgs e)

@@ -39,7 +39,7 @@ namespace CRM
         void Update()
         {
             tasks = db.Tasks.ToList();
-            tasks = tasks.FindAll(x => x.Iscompleted == 0 && (x.Users.Split().Contains(user.Login) || x.Users.Split().Contains("everyone")));
+            tasks = tasks.FindAll(x => x.Iscompleted == 0 && x.Users != null && (x.Users.Split().Contains(user.Login) || x.Users.Split().Contains("everyone")));
             listBox1.DataSource = tasks;
         }
 
@@ -80,6 +80,16 @@ namespace CRM
         private void addfriends_Click(object sender, EventArgs e)
         {
             Form form = new friends(user.id);
+            form.ShowDialog();
+        }
+
+        private void taskcontrol_Click(object sender, EventArgs e)
+        {
+            if (user.Friends == "" || user.Friends == null)
+            {
+                return;
+            }
+            Form form = new usertasks(user);
             form.ShowDialog();
         }
     }

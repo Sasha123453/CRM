@@ -36,6 +36,7 @@
             this.exitbutton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.addfriends = new System.Windows.Forms.Button();
+            this.taskcontrol = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -87,7 +88,7 @@
             // richTextBox1
             // 
             this.richTextBox1.Location = new System.Drawing.Point(179, 345);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(348, 117);
             this.richTextBox1.TabIndex = 4;
@@ -97,7 +98,7 @@
             // 
             this.exitbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             this.exitbutton.Location = new System.Drawing.Point(31, 78);
-            this.exitbutton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.exitbutton.Margin = new System.Windows.Forms.Padding(4);
             this.exitbutton.Name = "exitbutton";
             this.exitbutton.Size = new System.Drawing.Size(108, 38);
             this.exitbutton.TabIndex = 5;
@@ -129,11 +130,24 @@
             this.addfriends.UseVisualStyleBackColor = true;
             this.addfriends.Click += new System.EventHandler(this.addfriends_Click);
             // 
+            // taskcontrol
+            // 
+            this.taskcontrol.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.taskcontrol.Location = new System.Drawing.Point(564, 279);
+            this.taskcontrol.Margin = new System.Windows.Forms.Padding(4);
+            this.taskcontrol.Name = "taskcontrol";
+            this.taskcontrol.Size = new System.Drawing.Size(156, 73);
+            this.taskcontrol.TabIndex = 8;
+            this.taskcontrol.Text = "Управление задачами";
+            this.taskcontrol.UseVisualStyleBackColor = true;
+            this.taskcontrol.Click += new System.EventHandler(this.taskcontrol_Click);
+            // 
             // userform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(753, 625);
+            this.Controls.Add(this.taskcontrol);
             this.Controls.Add(this.addfriends);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.exitbutton);
@@ -161,5 +175,6 @@
         private System.Windows.Forms.Button exitbutton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button addfriends;
+        private System.Windows.Forms.Button taskcontrol;
     }
 }

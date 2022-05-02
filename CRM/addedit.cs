@@ -80,7 +80,7 @@ namespace CRM
 
         private void addusers_Click(object sender, EventArgs e)
         {
-            Form form = new Users(ss, 1, taskusers, "");
+            Form form = new Users(ss, 1, login, "");
             form.Owner = this;
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK);
