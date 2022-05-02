@@ -37,24 +37,27 @@
             // loginbox
             // 
             this.loginbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.loginbox.Location = new System.Drawing.Point(184, 120);
+            this.loginbox.Location = new System.Drawing.Point(184, 121);
+            this.loginbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.loginbox.Name = "loginbox";
-            this.loginbox.Size = new System.Drawing.Size(166, 27);
+            this.loginbox.Size = new System.Drawing.Size(167, 27);
             this.loginbox.TabIndex = 0;
             // 
             // passbox
             // 
             this.passbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
             this.passbox.Location = new System.Drawing.Point(184, 213);
+            this.passbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.passbox.Name = "passbox";
-            this.passbox.Size = new System.Drawing.Size(166, 27);
+            this.passbox.Size = new System.Drawing.Size(167, 27);
             this.passbox.TabIndex = 1;
             // 
             // buttonlogin
             // 
             this.buttonlogin.Location = new System.Drawing.Point(184, 286);
+            this.buttonlogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonlogin.Name = "buttonlogin";
-            this.buttonlogin.Size = new System.Drawing.Size(166, 79);
+            this.buttonlogin.Size = new System.Drawing.Size(165, 79);
             this.buttonlogin.TabIndex = 2;
             this.buttonlogin.Text = "Вход";
             this.buttonlogin.UseVisualStyleBackColor = true;
@@ -62,7 +65,8 @@
             // 
             // registrationbutton
             // 
-            this.registrationbutton.Location = new System.Drawing.Point(22, 31);
+            this.registrationbutton.Location = new System.Drawing.Point(21, 31);
+            this.registrationbutton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.registrationbutton.Name = "registrationbutton";
             this.registrationbutton.Size = new System.Drawing.Size(164, 39);
             this.registrationbutton.TabIndex = 3;
@@ -79,6 +83,7 @@
             this.Controls.Add(this.buttonlogin);
             this.Controls.Add(this.passbox);
             this.Controls.Add(this.loginbox);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -34,9 +34,9 @@ namespace CRM
             {
                 authUser = db.Users.Where(b => b.Login == login && b.Password == password).FirstOrDefault();
             }
-            if (authUser != null)
+            if (authUser != null && authUser.Banned == 0)
             {
-                if (authUser.Role == "admin")
+                if (authUser.Role == "admin" || authUser.Role == "lowadmin")
                 {
                     Form form = new adminform(authUser);
                     Hide();
@@ -51,7 +51,8 @@ namespace CRM
                     this.Close();
                 }
             }
-            else MessageBox.Show("Неверный логин или пароль");
+            else if (authUser == null) MessageBox.Show("Неверный логин или пароль");
+            else if (authUser.Banned == 1) MessageBox.Show("Данный пользователь заблокирован");
             
         }
 

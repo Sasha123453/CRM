@@ -15,17 +15,20 @@ namespace CRM
         int flag = 0;
         ApplicationContext db;
         List<Task> tasks;
-        public adminform(User user)
+        Form f2 = new addedit(-1);
+        User user;
+        public adminform(User mainuser)
         {
             InitializeComponent();
             db = new ApplicationContext();
+            user = mainuser;
             label1.Text = user.Login;
             Update();
         }
 
         private void userlistbutton_Click(object sender, EventArgs e)
         {
-            Form form = new Users();
+            Form form = new Users(null, 0, null, user.Role);
             form.ShowDialog();
         }
         void Update()
@@ -33,7 +36,7 @@ namespace CRM
             tasks = db.Tasks.ToList();
             if (flag == 1) tasks = tasks.FindAll(x => x.Iscompleted != 0);
             if (flag == 2) tasks = tasks.FindAll(x => x.Iscompleted == 0);
-            listBox1.DataSource = tasks;
+            listBox1.DataSource= tasks;
         }
 
         private void adminform_Load(object sender, EventArgs e)
@@ -50,14 +53,16 @@ namespace CRM
         {
             if (listBox1.SelectedIndex == -1) return;
             Task task = listBox1.SelectedItem as Task;
-            Form form = new addedit(task);
+            Form form = new addedit(task.id);
             form.ShowDialog();
+            Update();
         }
 
         private void addbutton_Click(object sender, EventArgs e)
         {
-            Form form = new addedit(null);
+            Form form = new addedit(-1);
             form.ShowDialog();
+            Update();
         }
 
         private void deletebutton_Click(object sender, EventArgs e)
@@ -72,7 +77,7 @@ namespace CRM
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
             Task task = listBox1.SelectedItem as Task;
-            MessageBox.Show("Описание: " + task.Description);
+            MessageBox.Show("Описание: " + task.Description +"\n Пльзователи: " + task.Users);
         }
 
         private void buttoncomplete_Click(object sender, EventArgs e)
@@ -106,7 +111,19 @@ namespace CRM
         {
             Form form = new Form1();
             this.Close();
-            this.Visible = false;
+            this.Hide();
+            form.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form form = new changepass(user.id);
+            form.ShowDialog();
+        }
+
+        private void addfriends_Click(object sender, EventArgs e)
+        {
+            Form form = new friends(user.id);
             form.ShowDialog();
         }
     }

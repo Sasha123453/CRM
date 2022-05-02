@@ -22,6 +22,7 @@ namespace CRM
             db = new ApplicationContext();
             tasks = new List<Task>();
             user = username;
+            listBox1.DataSource = tasks;
             Update();
         }
 
@@ -38,7 +39,7 @@ namespace CRM
         void Update()
         {
             tasks = db.Tasks.ToList();
-            tasks = tasks.FindAll(x => x.Iscompleted == 0);
+            tasks = tasks.FindAll(x => x.Iscompleted == 0 && (x.Users.Split().Contains(user.Login) || x.Users.Split().Contains("everyone")));
             listBox1.DataSource = tasks;
         }
 
@@ -66,7 +67,19 @@ namespace CRM
         {
             Form form = new Form1();
             this.Close();
-            this.Visible = false;
+            this.Hide();
+            form.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form form = new changepass(user.id);
+            form.ShowDialog();
+        }
+
+        private void addfriends_Click(object sender, EventArgs e)
+        {
+            Form form = new friends(user.id);
             form.ShowDialog();
         }
     }

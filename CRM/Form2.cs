@@ -25,7 +25,7 @@ namespace CRM
             string password = passbox.Text;
             string role = "normal";
 
-            User checkRepeat = new User(login, password, role);
+            User checkRepeat = new User(login, password, role, null, 0, null);
             using (ApplicationContext db = new ApplicationContext())
             {
                 checkRepeat = db.Users.Where(b => b.Login == login).FirstOrDefault();
@@ -36,7 +36,7 @@ namespace CRM
             }
             else
             {
-                User user = new User(login, password, role);
+                User user = new User(login, password, role, null, 0, null);
                 db.Users.Add(user);
                 db.SaveChanges();
                 MessageBox.Show("Вы зарегистрировались");

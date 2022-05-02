@@ -14,21 +14,22 @@ namespace CRM
     {
         ApplicationContext db;
         Task ss;
-        public addedit(Task task)
+        string taskusers;
+        public addedit(int id)
         {
             db = new ApplicationContext();
-            ss = task;
             InitializeComponent();
-            if (task == null)
+            if (id == -1)
             {
                 button1.Text = "Добавить";
             }
             else
             {
+                ss = db.Tasks.Where(b => b.id == id).FirstOrDefault();
                 button1.Text = "Сохранить";
-                completebox.Text = task.Iscompleted;
-                nametextbox.Text = task.Taskname;
-                descbox.Text = task.Description;
+                completebox.Text = ss.Solution;
+                nametextbox.Text = ss.Taskname;
+                descbox.Text = ss.Description;
             }
         }
 
@@ -39,21 +40,30 @@ namespace CRM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string complete;
-            if (completebox.Text == "") complete = null;
-            else complete = completebox.Text;
+            int complete;
+            string solution = null;
+            if (completebox.Text == "") complete = 0;
+            else
+            {
+                solution = completebox.Text;
+                complete = 1;
+            }
             if (ss == null)
             {
-                Task add = new Task(nametextbox.Text, descbox.Text, complete);
+                Task add = new Task(nametextbox.Text, descbox.Text, complete, taskusers, solution);
                 db.Tasks.Add(add);
             }
             else
             {
                 ss.Taskname = nametextbox.Text;
                 ss.Description = descbox.Text;
+                ss.Users = taskusers;
                 ss.Iscompleted = complete;
+                ss.Solution = solution;
             }
             db.SaveChanges();
+            this.Hide();
+            this.Close();
         }
 
         private void completebox_TextChanged(object sender, EventArgs e)
@@ -64,6 +74,30 @@ namespace CRM
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void addusers_Click(object sender, EventArgs e)
+        {
+            Form form = new Users(ss, 1, taskusers, "");
+            form.Owner = this;
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK);
+        }
+        public void GetUsers(List<string> users)
+        {
+
+            string l = "";
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (i == users.Count - 1) l += users[i];
+                else l += users[i] + " ";
+            }
+            taskusers = l;
+        }
+
+        private void allusersbutton_Click(object sender, EventArgs e)
+        {
+            taskusers = "everyone";
         }
     }
 }

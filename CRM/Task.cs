@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,11 @@ namespace CRM
         public override string ToString()
         {
             return id + " Задача: " + Taskname;
+        }
+
+        public static implicit operator Task(BindingList<Task> v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
