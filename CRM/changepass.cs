@@ -35,6 +35,8 @@ namespace CRM
                 MessageBox.Show("Этот логин занят");
                 return;
             }
+            List<Task> list = db.Tasks.Where(x => x.Author == user.Login).ToList();
+            foreach (Task t in list) t.Author = textBox1.Text;
             user.Login = textBox1.Text;
             user.Password = textBox2.Text;
             db.SaveChanges();

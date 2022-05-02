@@ -11,7 +11,7 @@ namespace CRM
     {
         public int id { get; set; }
 
-        private string taskname, description, users, solution;
+        private string taskname, description, users, solution, author;
 
         private int iscompleted;
 
@@ -22,25 +22,22 @@ namespace CRM
         public int Iscompleted { get { return iscompleted; } set { iscompleted = value; } }
 
         public string Users { get { return users; } set { users = value; } }
+        public string Author { get { return author; } set { author = value; } }
 
         public string Solution { get { return solution; } set { solution = value; } }
         public Task() { }
-        public Task(string taskname, string description, int iscompleted, string users, string solution)
+        public Task(string taskname, string description, int iscompleted, string users, string solution, string author)
         {
             this.taskname = taskname;
             this.description = description;
             this.iscompleted = iscompleted;
             this.users = users;
             this.solution = solution;
+            this.author = author;
         }
         public override string ToString()
         {
-            return id + " Задача: " + Taskname;
-        }
-
-        public static implicit operator Task(BindingList<Task> v)
-        {
-            throw new NotImplementedException();
+            return $"{id} {author}: {Taskname}";
         }
     }
 }

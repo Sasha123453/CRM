@@ -15,10 +15,12 @@ namespace CRM
         ApplicationContext db;
         Task ss;
         string taskusers;
-        public addedit(int id)
+        string login;
+        public addedit(int id, string mainlogin)
         {
             db = new ApplicationContext();
             InitializeComponent();
+            login = mainlogin;
             if (id == -1)
             {
                 button1.Text = "Добавить";
@@ -50,7 +52,7 @@ namespace CRM
             }
             if (ss == null)
             {
-                Task add = new Task(nametextbox.Text, descbox.Text, complete, taskusers, solution);
+                Task add = new Task(nametextbox.Text, descbox.Text, complete, taskusers, solution, login);
                 db.Tasks.Add(add);
             }
             else

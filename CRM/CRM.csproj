@@ -97,6 +97,12 @@
     <Compile Include="changepass.Designer.cs">
       <DependentUpon>changepass.cs</DependentUpon>
     </Compile>
+    <Compile Include="usertasks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="usertasks.Designer.cs">
+      <DependentUpon>usertasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="friends.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usertasks.resx">
+      <DependentUpon>usertasks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="friends.resx">
       <DependentUpon>friends.cs</DependentUpon>

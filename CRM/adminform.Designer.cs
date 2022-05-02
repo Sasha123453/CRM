@@ -105,6 +105,7 @@
             // 
             // buttonshowall
             // 
+            this.buttonshowall.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.buttonshowall.Location = new System.Drawing.Point(647, 245);
             this.buttonshowall.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonshowall.Name = "buttonshowall";
@@ -116,6 +117,7 @@
             // 
             // buttonnotcomplete
             // 
+            this.buttonnotcomplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.buttonnotcomplete.Location = new System.Drawing.Point(647, 167);
             this.buttonnotcomplete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonnotcomplete.Name = "buttonnotcomplete";
@@ -160,7 +162,7 @@
             // 
             // exitbutton
             // 
-            this.exitbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
+            this.exitbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
             this.exitbutton.Location = new System.Drawing.Point(21, 250);
             this.exitbutton.Margin = new System.Windows.Forms.Padding(4);
             this.exitbutton.Name = "exitbutton";
@@ -184,7 +186,7 @@
             // 
             // addfriends
             // 
-            this.addfriends.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
+            this.addfriends.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
             this.addfriends.Location = new System.Drawing.Point(21, 135);
             this.addfriends.Margin = new System.Windows.Forms.Padding(4);
             this.addfriends.Name = "addfriends";

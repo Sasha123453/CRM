@@ -15,7 +15,6 @@ namespace CRM
         int flag = 0;
         ApplicationContext db;
         List<Task> tasks;
-        Form f2 = new addedit(-1);
         User user;
         public adminform(User mainuser)
         {
@@ -53,14 +52,14 @@ namespace CRM
         {
             if (listBox1.SelectedIndex == -1) return;
             Task task = listBox1.SelectedItem as Task;
-            Form form = new addedit(task.id);
+            Form form = new addedit(task.id, user.Login);
             form.ShowDialog();
             Update();
         }
 
         private void addbutton_Click(object sender, EventArgs e)
         {
-            Form form = new addedit(-1);
+            Form form = new addedit(-1, user.Login);
             form.ShowDialog();
             Update();
         }

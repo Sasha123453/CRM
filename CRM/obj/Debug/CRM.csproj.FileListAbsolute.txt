@@ -78,3 +78,4 @@ C:\Users\shelk\OneDrive\Рабочий стол\CRM\CRM\obj\Debug\CRM.exe
 C:\Users\shelk\OneDrive\Рабочий стол\CRM\CRM\obj\Debug\CRM.pdb
 C:\Users\shelk\OneDrive\Рабочий стол\CRM\CRM\obj\Debug\CRM.changepass.resources
 C:\Users\shelk\OneDrive\Рабочий стол\CRM\CRM\obj\Debug\CRM.friends.resources
+C:\Users\shelk\OneDrive\Рабочий стол\CRM\CRM\obj\Debug\CRM.usertasks.resources
