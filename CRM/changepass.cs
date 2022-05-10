@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Security.Cryptography;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,13 +36,18 @@ namespace CRM
                 MessageBox.Show("Этот логин занят");
                 return;
             }
-            List<Task> list = db.Tasks.Where(x => x.Author == user.Login).ToList();
-            foreach (Task t in list) t.Author = textBox1.Text;
             user.Login = textBox1.Text;
-            user.Password = textBox2.Text;
+            if (textBox2.Text != "") user.Password = GetHash(textBox2.Text);
             db.SaveChanges();
             this.Hide();
             this.Close();
+        }
+        public string GetHash(string input)
+        {
+            var md5 = MD5.Create();
+            var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            return Convert.ToBase64String(hash);
         }
     }
 }

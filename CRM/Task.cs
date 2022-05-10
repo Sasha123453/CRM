@@ -11,11 +11,12 @@ namespace CRM
     {
         public int id { get; set; }
 
-        private string taskname, description, users, solution, author;
+        private string taskname, description, users, solution, author, deadline;
 
         private int iscompleted;
 
         public string Taskname { get { return taskname; } set { taskname = value; } }
+        public string Deadline { get { return deadline; } set { deadline = value; } }
 
         public string Description { get { return description; } set { description = value; } }
 
@@ -26,7 +27,7 @@ namespace CRM
 
         public string Solution { get { return solution; } set { solution = value; } }
         public Task() { }
-        public Task(string taskname, string description, int iscompleted, string users, string solution, string author)
+        public Task(string taskname, string description, int iscompleted, string users, string solution, string author, string deadline)
         {
             this.taskname = taskname;
             this.description = description;
@@ -34,6 +35,7 @@ namespace CRM
             this.users = users;
             this.solution = solution;
             this.author = author;
+            this.deadline = deadline;
         }
         public override string ToString()
         {

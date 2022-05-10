@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Security.Cryptography;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace CRM
         private void registration_Click(object sender, EventArgs e)
         {
             string login = loginbox.Text;
-            string password = passbox.Text;
+            string password = GetHash(passbox.Text);
             string role = "normal";
 
             User checkRepeat = new User(login, password, role, null, 0, null);
@@ -47,6 +48,13 @@ namespace CRM
         private void Form2_Load(object sender, EventArgs e)
         {
 
+        }
+        public string GetHash(string input)
+        {
+            var md5 = MD5.Create();
+            var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            return Convert.ToBase64String(hash);
         }
     }
 }

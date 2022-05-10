@@ -12,6 +12,7 @@ namespace CRM
 {
     public partial class addedit : Form
     {
+        User user;
         ApplicationContext db;
         Task ss;
         string taskusers;
@@ -21,6 +22,7 @@ namespace CRM
             db = new ApplicationContext();
             InitializeComponent();
             login = mainlogin;
+            user = db.Users.Where(x => x.Login == login).FirstOrDefault();
             if (id == -1)
             {
                 button1.Text = "Добавить";
@@ -52,7 +54,7 @@ namespace CRM
             }
             if (ss == null)
             {
-                Task add = new Task(nametextbox.Text, descbox.Text, complete, taskusers, solution, login);
+                Task add = new Task(nametextbox.Text, descbox.Text, complete, taskusers, solution, user.id.ToString(), null);
                 db.Tasks.Add(add);
             }
             else
@@ -85,14 +87,14 @@ namespace CRM
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK);
         }
-        public void GetUsers(List<string> users)
+        public void GetUsers(List<User> users)
         {
 
             string l = "";
             for (int i = 0; i < users.Count; i++)
             {
-                if (i == users.Count - 1) l += users[i];
-                else l += users[i] + " ";
+                if (i == users.Count - 1) l += users[i].id.ToString();
+                else l += users[i].id.ToString() + " ";
             }
             taskusers = l;
         }

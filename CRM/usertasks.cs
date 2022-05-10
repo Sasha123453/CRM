@@ -21,7 +21,7 @@ namespace CRM
             InitializeComponent();
             user = mainuser;
             db = new ApplicationContext();
-            tasks = db.Tasks.Where(x => x.Author == user.Login).ToList();
+            tasks = db.Tasks.Where(x => x.Author == user.id.ToString()).ToList();
             Update();
         }
 
@@ -31,7 +31,7 @@ namespace CRM
         }
         void Update()
         {
-            tasks = db.Tasks.Where(x => x.Author == user.Login).ToList();
+            tasks = db.Tasks.Where(x => x.Author == user.id.ToString()).ToList();
             if (flag == 0) listBox1.DataSource = tasks;
             if (flag == 1) listBox1.DataSource = tasks.FindAll(x => x.Iscompleted == 1);
             if (flag == 2) listBox1.DataSource = tasks.FindAll(x => x.Iscompleted == 0);

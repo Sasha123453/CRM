@@ -118,6 +118,7 @@ namespace CRM
         {
             Form form = new changepass(user.id);
             form.ShowDialog();
+            label1.Text = user.Login;
         }
 
         private void addfriends_Click(object sender, EventArgs e)

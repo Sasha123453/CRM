@@ -39,7 +39,7 @@ namespace CRM
         void Update()
         {
             tasks = db.Tasks.ToList();
-            tasks = tasks.FindAll(x => x.Iscompleted == 0 && x.Users != null && (x.Users.Split().Contains(user.Login) || x.Users.Split().Contains("everyone")));
+            tasks = tasks.FindAll(x => x.Iscompleted == 0 && x.Users != null && (x.Users.Split().Contains(user.id.ToString()) || x.Users.Split().Contains("everyone")));
             listBox1.DataSource = tasks;
         }
 
@@ -75,6 +75,7 @@ namespace CRM
         {
             Form form = new changepass(user.id);
             form.ShowDialog();
+            label1.Text = user.Login;
         }
 
         private void addfriends_Click(object sender, EventArgs e)

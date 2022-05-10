@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Security.Cryptography;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace CRM
         private void buttonlogin_Click(object sender, EventArgs e)
         {
             string login = loginbox.Text;
-            string password = passbox.Text;
+            string password = GetHash(passbox.Text);
             User authUser = null;
             using (ApplicationContext db = new ApplicationContext())
             {
@@ -60,6 +61,13 @@ namespace CRM
         {
             Form form = new Form2();
             form.ShowDialog();
+        }
+        public string GetHash(string input)
+        {
+            var md5 = MD5.Create();
+            var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            return Convert.ToBase64String(hash);
         }
     }
 }

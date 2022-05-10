@@ -19,19 +19,27 @@ namespace CRM
         public int mode;
         User user = new User();
         string role;
-        List<string> userlist = new List<string>();
-        List<string> taskusers = new List<string>();
+        List<User> userlist = new List<User>();
+        List<User> taskusers = new List<User>();
         public Users(Task maintask, int mainmode, string login, string mainrole)
         {
             InitializeComponent();
             db = new ApplicationContext();
             List<User> users = db.Users.ToList();
             task = maintask;
-            if (task != null && task.Users != null && task.Users != "") taskusers = task.Users.Split().ToList();
+            if (task != null && task.Users != null && task.Users != "")
+            {
+                string[] l = task.Users.Split();
+                foreach (string s in l) taskusers.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+            }
             mode = mainmode;
             user = db.Users.Where(x => x.Login == login).FirstOrDefault();
             role = mainrole;
-            if (user.Role == "normal" ) userlist = user.Friends.Split().ToList();
+            if (user.Role == "normal" && user.Friends != null && user.Friends != "")
+            {
+                string[] l = user.Friends.Split();
+                foreach (string s in l) userlist.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+            }
             delbutton.Enabled = false;
             UpdateEdit();
             if (mode == 0)
@@ -73,18 +81,20 @@ namespace CRM
             {
                 if (user.Role == "normal")
                 {
-                    List<string> list = userlist;
-                    if (textBox1.Text != "") list = list.FindAll(x => x.Contains(textBox1.Text));
-                    list.Remove(user.Login);
+                    List<User> list = userlist;
+                    if (textBox1.Text != "") list = list.FindAll(x => x.Login.Contains(textBox1.Text));
+                    list.Remove(user);
                     listBox1.DataSource = list;
                     return;
                 }
                 users = db.Users.ToList();
                 users.Remove(user);
                 if (textBox1.Text != "") users = users.FindAll(x => x.Login.Contains(textBox1.Text));
-                listBox1.DataSource = users;
+                if (users.Count > 0) listBox1.DataSource = users;
+                else listBox1.DataSource = null;
             }
-            else listBox1.DataSource = taskusers;
+            else if (taskusers.Count > 0) listBox1.DataSource = taskusers;
+            else listBox1.DataSource = null;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -111,26 +121,18 @@ namespace CRM
         private void addbutton_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex == -1) return;
-            if (user.Role != "normal")
-            {
-                User tempuser = listBox1.SelectedItem as User;
-                if (taskusers.Contains(tempuser.Login)) return;
-                taskusers.Add(tempuser.Login);
-            }
-            else
-            {
-                string l = listBox1.SelectedItem as string;
-                if (taskusers.Contains(l)) return;
-                taskusers.Add(l);
-            }
+            User tempuser = listBox1.SelectedItem as User;
+            if (taskusers.Contains(tempuser)) return;
+            taskusers.Add(tempuser);
+
         }
 
         private void delbutton_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex == -1) return;
-            string l = listBox1.SelectedItem as string;
+            User l = listBox1.SelectedItem as User;
             taskusers.Remove(l);
-            listBox1.DataSource = taskusers;
+            UpdateEdit();
         }
 
         private void Users_Load(object sender, EventArgs e)

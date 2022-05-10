@@ -14,16 +14,24 @@ namespace CRM
     {
         User user;
         ApplicationContext db;
-        List<string> userfriends = new List<string>();
-        List<string> userquerys = new List<string>();
+        List<User> userfriends = new List<User>();
+        List<User> userquerys = new List<User>();
         int flag = 0;
         public friends(int id)
         {
             InitializeComponent();
             db = new ApplicationContext();
             user = db.Users.Where(b => b.id == id).FirstOrDefault();
-            if (user.Friends != null) userfriends = user.Friends.Split().ToList();
-            if (user.Querys != null) userquerys = user.Querys.Split().ToList();
+            if (user.Friends != null && user.Friends != "")
+            {
+                string[] l = user.Friends.Split();
+                foreach (string s in l) userfriends.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+            }
+            if (user.Querys != null && user.Querys != "")
+            {
+                string[] l = user.Querys.Split();
+                foreach (string s in l) userquerys.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+            }
             Update();
         }
 
@@ -35,26 +43,24 @@ namespace CRM
         private void addbutton_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex == -1) return;
+            User tempuser = listBox1.SelectedItem as User;
             if (flag == 2)
             {
-                string k = listBox1.SelectedItem as string;
-                User tempuser = db.Users.Where(b => b.Login == k).FirstOrDefault();
-                if (tempuser.Friends != null && tempuser.Friends != "") tempuser.Friends += " " + user.Login;
-                tempuser.Friends += user.Login;
-                userquerys.Remove(k);
-                userfriends.Add(k);
+                if (tempuser.Friends != null && tempuser.Friends != "") tempuser.Friends += " " + user.id.ToString();
+                tempuser.Friends = user.id.ToString();
+                userquerys.Remove(tempuser);
+                userfriends.Add(tempuser);
                 AddToFriends(user, userfriends);
                 AddToQuerys(user, userquerys);
                 return;
             }
-            User tmpuser = listBox1.SelectedItem as User;
-            if (tmpuser.Querys != null && tmpuser.Querys.Split().Contains(user.Login) || tmpuser.Friends != null && tmpuser.Friends.Split().Contains(user.Login))
+            if (tempuser.Querys != null && tempuser.Querys.Split().Contains(user.Login) || tempuser.Friends != null && tempuser.Friends.Split().Contains(user.Login))
             {
                 MessageBox.Show("Вы уже отправили запрос этому пользователю");
                 return;
             }
-            if (tmpuser.Querys != null && tmpuser.Querys != "") tmpuser.Querys += " " + user.Login;
-            tmpuser.Querys += user.Login;
+            if (tempuser.Querys != null && tempuser.Querys != "") tempuser.Querys += " " + user.id.ToString();
+            tempuser.Querys += user.id.ToString();
             db.SaveChanges();
             Update();
 
@@ -63,7 +69,7 @@ namespace CRM
         private void deletefriend_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex == -1) return;
-            string l = listBox1.SelectedItem as string;
+            User l = listBox1.SelectedItem as User;
             if (flag == 2)
             {
                 userquerys.Remove(l);
@@ -72,10 +78,16 @@ namespace CRM
             }
             userfriends.Remove(l);
             AddToFriends(user, userfriends);
-            User tmpuser = db.Users.Where(x => x.Login == l).FirstOrDefault();
-            List<string> list = tmpuser.Friends.Split().ToList();
-            list.Remove(user.Login);
-            AddToFriends(tmpuser, list);
+            List<string> list = l.Friends.Split().ToList();
+            list.Remove(user.id.ToString());
+            string k = null;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (i == list.Count - 1) k += list[i];
+                else k += list[i] + " ";
+            }
+            l.Friends = k;
+            db.SaveChanges();
             Update();
             
         }
@@ -93,17 +105,20 @@ namespace CRM
             {
                 List<User> users = db.Users.ToList();
                 users.Remove(user);
-                if (textBox1.Text != "") users = users.FindAll(x => x.Login.Contains(textBox1.Text));
+                if (textBox1.Text != "") users = users.FindAll(x => x.Login.ToString().Contains(textBox1.Text));
                 listBox1.DataSource = users;
             }
             if (flag == 1)
             {
-                listBox1.DataSource = userfriends;
+                if (userfriends.Count > 0) listBox1.DataSource = userfriends;
+                else listBox1.DataSource = null; 
             }
             if (flag == 2)
             {
-                listBox1.DataSource = userquerys;
+                if (userquerys.Count > 0) listBox1.DataSource = userquerys;
+                else listBox1.DataSource = null;
             }
+            listBox1.Update();
         }
 
         private void showfriends_Click(object sender, EventArgs e)
@@ -113,27 +128,29 @@ namespace CRM
             deletefriend.Enabled = true;
             Update();
         }
-        void AddToQuerys(User us, List<string> add)
+        void AddToQuerys(User us, List<User> add)
         {
             string l = null;
             for (int i = 0; i < add.Count; i++)
             {
-                if (i == add.Count - 1) l += add[i];
-                else l += add[i] + " ";
+                if (i == add.Count - 1) l += add[i].id.ToString();
+                else l += add[i].id.ToString() + " ";
             }
             us.Querys = l;
             db.SaveChanges();
+            Update();
         }
-        void AddToFriends(User us, List<string> add)
+        void AddToFriends(User us, List<User> add)
         {
             string k = null;
             for (int i = 0; i < add.Count; i++)
             {
-                if (i == add.Count - 1) k += add[i];
-                else k += userfriends[i] + " ";
+                if (i == add.Count - 1) k += add[i].id.ToString();
+                else k += userfriends[i].id.ToString() + " ";
             }
             us.Friends = k;
             db.SaveChanges();
+            Update();
         }
 
         private void showquerys_Click(object sender, EventArgs e)
