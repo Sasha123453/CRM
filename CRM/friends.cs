@@ -22,6 +22,7 @@ namespace CRM
             InitializeComponent();
             db = new ApplicationContext();
             user = db.Users.Where(b => b.id == id).FirstOrDefault();
+            deletefriend.Enabled = false;
             if (user.Friends != null && user.Friends != "")
             {
                 string[] l = user.Friends.Split();

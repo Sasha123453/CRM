@@ -12,17 +12,22 @@ namespace CRM
 {
     public partial class addedit : Form
     {
+        int flag = 0;
+        List<User> userlist =  new List<User>(); 
         User user;
         ApplicationContext db;
         Task ss;
-        string taskusers;
+        string maintaskusers;
+        List<User> taskusers = new List<User>();
         string login;
         public addedit(int id, string mainlogin)
         {
             db = new ApplicationContext();
             InitializeComponent();
             login = mainlogin;
+            TaskTab.TabPages.Remove(UsersPage);
             user = db.Users.Where(x => x.Login == login).FirstOrDefault();
+            if (user.Role == "normal") allusersbutton.Enabled = false;
             if (id == -1)
             {
                 button1.Text = "Добавить";
@@ -31,7 +36,7 @@ namespace CRM
             {
                 ss = db.Tasks.Where(b => b.id == id).FirstOrDefault();
                 button1.Text = "Сохранить";
-                completebox.Text = ss.Solution;
+                completebox.Text = ss.Commentary;
                 nametextbox.Text = ss.Taskname;
                 descbox.Text = ss.Description;
             }
@@ -45,25 +50,17 @@ namespace CRM
         private void button1_Click(object sender, EventArgs e)
         {
             int complete;
-            string solution = null;
-            if (completebox.Text == "") complete = 0;
-            else
-            {
-                solution = completebox.Text;
-                complete = 1;
-            }
             if (ss == null)
             {
-                Task add = new Task(nametextbox.Text, descbox.Text, complete, taskusers, solution, user.id.ToString(), null);
+                Task add = new Task(nametextbox.Text, descbox.Text, 0, maintaskusers, null, user.id.ToString(), null, 0, completebox.Text);
                 db.Tasks.Add(add);
             }
             else
             {
                 ss.Taskname = nametextbox.Text;
                 ss.Description = descbox.Text;
-                ss.Users = taskusers;
-                ss.Iscompleted = complete;
-                ss.Solution = solution;
+                ss.Users = maintaskusers;
+                ss.Commentary = completebox.Text;
             }
             db.SaveChanges();
             this.Hide();
@@ -82,10 +79,19 @@ namespace CRM
 
         private void addusers_Click(object sender, EventArgs e)
         {
-            Form form = new Users(ss, 1, login, "");
-            form.Owner = this;
-            form.ShowDialog();
-            if (form.DialogResult == DialogResult.OK);
+            TaskTab.TabPages.Remove(TaskAddPage);
+            TaskTab.TabPages.Add(UsersPage);
+            if (ss != null && ss.Users != null && ss.Users != "")
+            {
+                string[] l = ss.Users.Split();
+                foreach (string s in l) taskusers.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+            }
+            if (user.Role == "normal")
+            {
+                string[] l = user.Friends.Split();
+                foreach (string s in l) userlist.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+            }
+            Update();
         }
         public void GetUsers(List<User> users)
         {
@@ -96,12 +102,93 @@ namespace CRM
                 if (i == users.Count - 1) l += users[i].id.ToString();
                 else l += users[i].id.ToString() + " ";
             }
-            taskusers = l;
+            maintaskusers = l;
         }
 
         private void allusersbutton_Click(object sender, EventArgs e)
         {
-            taskusers = "everyone";
+            maintaskusers = "everyone";
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            GetUsers(taskusers);
+            TaskTab.TabPages.Remove(UsersPage);
+            TaskTab.TabPages.Add(TaskAddPage);
+            taskusers.Clear();
+            userlist.Clear();
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            if (UsersListBox.SelectedIndex == -1) return;
+            User l = UsersListBox.SelectedItem as User;
+            taskusers.Remove(l);
+            Update();
+        }
+        void Update()
+        {
+            if (flag == 0)
+            {
+                if (user.Role == "normal")
+                {
+                    List<User> list = userlist;
+                    if (UsersBox.Text != "") list = list.FindAll(x => x.Login.Contains(UsersBox.Text));
+                    list.Remove(user);
+                    UsersListBox.DataSource = list;
+                    return;
+                }
+                List<User> users = db.Users.ToList();
+                users.Remove(user);
+                if (UsersBox.Text != "") users = users.FindAll(x => x.Login.Contains(UsersBox.Text));
+                if (users.Count > 0) UsersListBox.DataSource = users;
+                else UsersListBox.DataSource = null;
+            }
+            else if (taskusers.Count > 0) UsersListBox.DataSource = taskusers;
+            else UsersListBox.DataSource = null;
+        }
+
+        private void UsersBox_TextChanged(object sender, EventArgs e)
+        {
+            Update();
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            if (UsersListBox.SelectedIndex == -1) return;
+            User tempuser = UsersListBox.SelectedItem as User;
+            if (taskusers.Contains(tempuser)) return;
+            taskusers.Add(tempuser);
+        }
+
+        private void ShowUser_Click(object sender, EventArgs e)
+        {
+            flag = 1;
+            AddButton.Enabled = false;
+            DeleteButton.Enabled = true;
+            Update();
+        }
+
+        private void ShowAll_Click(object sender, EventArgs e)
+        {
+            flag = 0;
+            AddButton.Enabled = true;
+            DeleteButton.Enabled = false;
+            Update();
+        }
+
+        private void CleanAll_Click(object sender, EventArgs e)
+        {
+            taskusers.Clear();
+            Update();
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            TaskTab.TabPages.Remove(UsersPage);
+            TaskTab.TabPages.Add(TaskAddPage);
+            taskusers.Clear();
+            userlist.Clear();
         }
     }
 }

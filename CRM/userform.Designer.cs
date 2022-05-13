@@ -31,19 +31,30 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.solutionbutton = new System.Windows.Forms.Button();
             this.updatebutton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.exitbutton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.addfriends = new System.Windows.Forms.Button();
             this.taskcontrol = new System.Windows.Forms.Button();
+            this.MainPage = new System.Windows.Forms.TabControl();
+            this.UserPage = new System.Windows.Forms.TabPage();
+            this.ChangeData = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.BackDataButton = new System.Windows.Forms.Button();
+            this.PassBox = new System.Windows.Forms.TextBox();
+            this.LoginBox = new System.Windows.Forms.TextBox();
+            this.ChangeDataButton = new System.Windows.Forms.Button();
+            this.MainPage.SuspendLayout();
+            this.UserPage.SuspendLayout();
+            this.ChangeData.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(179, 78);
+            this.listBox1.Location = new System.Drawing.Point(131, 73);
             this.listBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(348, 212);
@@ -54,7 +65,7 @@
             // solutionbutton
             // 
             this.solutionbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.solutionbutton.Location = new System.Drawing.Point(179, 491);
+            this.solutionbutton.Location = new System.Drawing.Point(131, 455);
             this.solutionbutton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.solutionbutton.Name = "solutionbutton";
             this.solutionbutton.Size = new System.Drawing.Size(139, 58);
@@ -66,7 +77,7 @@
             // updatebutton
             // 
             this.updatebutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.updatebutton.Location = new System.Drawing.Point(389, 491);
+            this.updatebutton.Location = new System.Drawing.Point(340, 455);
             this.updatebutton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.updatebutton.Name = "updatebutton";
             this.updatebutton.Size = new System.Drawing.Size(139, 58);
@@ -75,19 +86,9 @@
             this.updatebutton.UseVisualStyleBackColor = true;
             this.updatebutton.Click += new System.EventHandler(this.updatebutton_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.label1.Location = new System.Drawing.Point(605, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 20);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "label1";
-            // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(179, 345);
+            this.richTextBox1.Location = new System.Drawing.Point(131, 306);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(348, 117);
@@ -97,7 +98,7 @@
             // exitbutton
             // 
             this.exitbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.exitbutton.Location = new System.Drawing.Point(31, 78);
+            this.exitbutton.Location = new System.Drawing.Point(9, 32);
             this.exitbutton.Margin = new System.Windows.Forms.Padding(4);
             this.exitbutton.Name = "exitbutton";
             this.exitbutton.Size = new System.Drawing.Size(108, 38);
@@ -109,7 +110,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.button1.Location = new System.Drawing.Point(564, 78);
+            this.button1.Location = new System.Drawing.Point(518, 73);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(156, 73);
@@ -121,7 +122,7 @@
             // addfriends
             // 
             this.addfriends.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.addfriends.Location = new System.Drawing.Point(564, 179);
+            this.addfriends.Location = new System.Drawing.Point(518, 191);
             this.addfriends.Margin = new System.Windows.Forms.Padding(4);
             this.addfriends.Name = "addfriends";
             this.addfriends.Size = new System.Drawing.Size(156, 73);
@@ -133,7 +134,7 @@
             // taskcontrol
             // 
             this.taskcontrol.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.taskcontrol.Location = new System.Drawing.Point(564, 279);
+            this.taskcontrol.Location = new System.Drawing.Point(518, 306);
             this.taskcontrol.Margin = new System.Windows.Forms.Padding(4);
             this.taskcontrol.Name = "taskcontrol";
             this.taskcontrol.Size = new System.Drawing.Size(156, 73);
@@ -142,26 +143,125 @@
             this.taskcontrol.UseVisualStyleBackColor = true;
             this.taskcontrol.Click += new System.EventHandler(this.taskcontrol_Click);
             // 
+            // MainPage
+            // 
+            this.MainPage.Controls.Add(this.UserPage);
+            this.MainPage.Controls.Add(this.ChangeData);
+            this.MainPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPage.Location = new System.Drawing.Point(0, 0);
+            this.MainPage.Name = "MainPage";
+            this.MainPage.SelectedIndex = 0;
+            this.MainPage.Size = new System.Drawing.Size(757, 625);
+            this.MainPage.TabIndex = 9;
+            // 
+            // UserPage
+            // 
+            this.UserPage.Controls.Add(this.listBox1);
+            this.UserPage.Controls.Add(this.updatebutton);
+            this.UserPage.Controls.Add(this.richTextBox1);
+            this.UserPage.Controls.Add(this.solutionbutton);
+            this.UserPage.Controls.Add(this.taskcontrol);
+            this.UserPage.Controls.Add(this.exitbutton);
+            this.UserPage.Controls.Add(this.addfriends);
+            this.UserPage.Controls.Add(this.button1);
+            this.UserPage.Location = new System.Drawing.Point(4, 25);
+            this.UserPage.Name = "UserPage";
+            this.UserPage.Padding = new System.Windows.Forms.Padding(3);
+            this.UserPage.Size = new System.Drawing.Size(749, 596);
+            this.UserPage.TabIndex = 0;
+            this.UserPage.Text = "tabpage1";
+            this.UserPage.UseVisualStyleBackColor = true;
+            // 
+            // ChangeData
+            // 
+            this.ChangeData.Controls.Add(this.label2);
+            this.ChangeData.Controls.Add(this.label1);
+            this.ChangeData.Controls.Add(this.BackDataButton);
+            this.ChangeData.Controls.Add(this.PassBox);
+            this.ChangeData.Controls.Add(this.LoginBox);
+            this.ChangeData.Controls.Add(this.ChangeDataButton);
+            this.ChangeData.Location = new System.Drawing.Point(4, 25);
+            this.ChangeData.Name = "ChangeData";
+            this.ChangeData.Padding = new System.Windows.Forms.Padding(3);
+            this.ChangeData.Size = new System.Drawing.Size(749, 596);
+            this.ChangeData.TabIndex = 1;
+            this.ChangeData.Text = "?";
+            this.ChangeData.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.11F);
+            this.label2.Location = new System.Drawing.Point(151, 220);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 24);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Пароль:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.11F);
+            this.label1.Location = new System.Drawing.Point(151, 117);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 24);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Логин:";
+            // 
+            // BackDataButton
+            // 
+            this.BackDataButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
+            this.BackDataButton.Location = new System.Drawing.Point(8, 34);
+            this.BackDataButton.Name = "BackDataButton";
+            this.BackDataButton.Size = new System.Drawing.Size(171, 57);
+            this.BackDataButton.TabIndex = 9;
+            this.BackDataButton.Text = "Назад";
+            this.BackDataButton.UseVisualStyleBackColor = true;
+            this.BackDataButton.Click += new System.EventHandler(this.BackDataButton_Click);
+            // 
+            // PassBox
+            // 
+            this.PassBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.1F);
+            this.PassBox.Location = new System.Drawing.Point(250, 214);
+            this.PassBox.Name = "PassBox";
+            this.PassBox.Size = new System.Drawing.Size(277, 30);
+            this.PassBox.TabIndex = 8;
+            // 
+            // LoginBox
+            // 
+            this.LoginBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.1F);
+            this.LoginBox.Location = new System.Drawing.Point(250, 111);
+            this.LoginBox.Name = "LoginBox";
+            this.LoginBox.Size = new System.Drawing.Size(277, 30);
+            this.LoginBox.TabIndex = 7;
+            // 
+            // ChangeDataButton
+            // 
+            this.ChangeDataButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.12F);
+            this.ChangeDataButton.Location = new System.Drawing.Point(250, 327);
+            this.ChangeDataButton.Name = "ChangeDataButton";
+            this.ChangeDataButton.Size = new System.Drawing.Size(277, 75);
+            this.ChangeDataButton.TabIndex = 6;
+            this.ChangeDataButton.Text = "Сохранить";
+            this.ChangeDataButton.UseVisualStyleBackColor = true;
+            this.ChangeDataButton.Click += new System.EventHandler(this.ChangeDataButton_Click);
+            // 
             // userform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 625);
-            this.Controls.Add(this.taskcontrol);
-            this.Controls.Add(this.addfriends);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.exitbutton);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.updatebutton);
-            this.Controls.Add(this.solutionbutton);
-            this.Controls.Add(this.listBox1);
+            this.ClientSize = new System.Drawing.Size(757, 625);
+            this.Controls.Add(this.MainPage);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "userform";
             this.Text = "userform";
             this.Load += new System.EventHandler(this.userform_Load);
+            this.MainPage.ResumeLayout(false);
+            this.UserPage.ResumeLayout(false);
+            this.ChangeData.ResumeLayout(false);
+            this.ChangeData.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -170,11 +270,19 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button solutionbutton;
         private System.Windows.Forms.Button updatebutton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button exitbutton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button addfriends;
         private System.Windows.Forms.Button taskcontrol;
+        private System.Windows.Forms.TabControl MainPage;
+        private System.Windows.Forms.TabPage UserPage;
+        private System.Windows.Forms.TabPage ChangeData;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button BackDataButton;
+        private System.Windows.Forms.TextBox PassBox;
+        private System.Windows.Forms.TextBox LoginBox;
+        private System.Windows.Forms.Button ChangeDataButton;
     }
 }

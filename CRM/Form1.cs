@@ -19,6 +19,7 @@ namespace CRM
         {
             InitializeComponent();
             db = new ApplicationContext();
+            LoginControl.TabPages.Remove(RegistrationPage);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -59,8 +60,8 @@ namespace CRM
 
         private void registrationbutton_Click(object sender, EventArgs e)
         {
-            Form form = new Form2();
-            form.ShowDialog();
+            LoginControl.TabPages.Remove(LoginPage);
+            LoginControl.TabPages.Add(RegistrationPage);
         }
         public string GetHash(string input)
         {
@@ -68,6 +69,46 @@ namespace CRM
             var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
 
             return Convert.ToBase64String(hash);
+        }
+
+        private void RegistrationPage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void registrb_Click(object sender, EventArgs e)
+        {
+            string login = textBox1.Text;
+            string password = GetHash(textBox2.Text);
+            string role = "normal";
+
+            User checkRepeat = new User(login, password, role, null, 0, null);
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                checkRepeat = db.Users.Where(b => b.Login == login).FirstOrDefault();
+            }
+            if (checkRepeat != null)
+            {
+                MessageBox.Show("Данный логин занят, выберите другой");
+            }
+            else
+            {
+                User user = new User(login, password, role, null, 0, null);
+                db.Users.Add(user);
+                db.SaveChanges();
+                MessageBox.Show("Вы зарегистрировались");
+            }
+        }
+
+        private void loginb_Click(object sender, EventArgs e)
+        {
+            LoginControl.TabPages.Remove(RegistrationPage);
+            LoginControl.TabPages.Add(LoginPage);
+        }
+
+        private void LoginPage_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

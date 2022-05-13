@@ -33,8 +33,8 @@ namespace CRM
         {
             tasks = db.Tasks.Where(x => x.Author == user.id.ToString()).ToList();
             if (flag == 0) listBox1.DataSource = tasks;
-            if (flag == 1) listBox1.DataSource = tasks.FindAll(x => x.Iscompleted == 1);
-            if (flag == 2) listBox1.DataSource = tasks.FindAll(x => x.Iscompleted == 0);
+            if (flag == 1) listBox1.DataSource = tasks.FindAll(x => x.Completed == 1);
+            if (flag == 2) listBox1.DataSource = tasks.FindAll(x => x.Completed == 0);
 
         }
 
