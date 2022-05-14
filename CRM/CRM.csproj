@@ -78,24 +78,11 @@
       <DependentUpon>adminform.cs</DependentUpon>
     </Compile>
     <Compile Include="ApplicationContext.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="changepass.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="changepass.Designer.cs">
-      <DependentUpon>changepass.cs</DependentUpon>
-    </Compile>
-    <Compile Include="usertasks.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="usertasks.Designer.cs">
-      <DependentUpon>usertasks.cs</DependentUpon>
     </Compile>
     <Compile Include="friends.cs">
       <SubType>Form</SubType>
@@ -119,14 +106,8 @@
     <EmbeddedResource Include="adminform.resx">
       <DependentUpon>adminform.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="changepass.resx">
-      <DependentUpon>changepass.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="usertasks.resx">
-      <DependentUpon>usertasks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="friends.resx">
       <DependentUpon>friends.cs</DependentUpon>

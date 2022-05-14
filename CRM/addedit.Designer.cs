@@ -49,6 +49,7 @@
             this.AddButton = new System.Windows.Forms.Button();
             this.UsersBox = new System.Windows.Forms.TextBox();
             this.UsersListBox = new System.Windows.Forms.ListBox();
+            this.CleanAllUsersButton = new System.Windows.Forms.Button();
             this.TaskTab.SuspendLayout();
             this.TaskAddPage.SuspendLayout();
             this.UsersPage.SuspendLayout();
@@ -158,6 +159,7 @@
             // 
             // TaskAddPage
             // 
+            this.TaskAddPage.Controls.Add(this.CleanAllUsersButton);
             this.TaskAddPage.Controls.Add(this.nametextbox);
             this.TaskAddPage.Controls.Add(this.addusers);
             this.TaskAddPage.Controls.Add(this.allusersbutton);
@@ -193,6 +195,7 @@
             this.UsersPage.TabIndex = 1;
             this.UsersPage.Text = "Пользователи";
             this.UsersPage.UseVisualStyleBackColor = true;
+            this.UsersPage.Click += new System.EventHandler(this.UsersPage_Click);
             // 
             // BackButton
             // 
@@ -282,6 +285,16 @@
             this.UsersListBox.Size = new System.Drawing.Size(559, 292);
             this.UsersListBox.TabIndex = 1;
             // 
+            // CleanAllUsersButton
+            // 
+            this.CleanAllUsersButton.Location = new System.Drawing.Point(60, 351);
+            this.CleanAllUsersButton.Name = "CleanAllUsersButton";
+            this.CleanAllUsersButton.Size = new System.Drawing.Size(138, 74);
+            this.CleanAllUsersButton.TabIndex = 11;
+            this.CleanAllUsersButton.Text = "Очистить всех пользователей";
+            this.CleanAllUsersButton.UseVisualStyleBackColor = true;
+            this.CleanAllUsersButton.Click += new System.EventHandler(this.CleanAllUsersButton_Click);
+            // 
             // addedit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -324,5 +337,6 @@
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CleanAll;
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button CleanAllUsersButton;
     }
 }

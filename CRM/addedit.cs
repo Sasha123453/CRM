@@ -17,7 +17,7 @@ namespace CRM
         User user;
         ApplicationContext db;
         Task ss;
-        string maintaskusers;
+        string maintaskusers = "";
         List<User> taskusers = new List<User>();
         string login;
         public addedit(int id, string mainlogin)
@@ -79,8 +79,13 @@ namespace CRM
 
         private void addusers_Click(object sender, EventArgs e)
         {
-            TaskTab.TabPages.Remove(TaskAddPage);
+            if (maintaskusers.Split().Contains("everyone"))
+            {
+                MessageBox.Show("");
+                return;
+            }
             TaskTab.TabPages.Add(UsersPage);
+            TaskTab.TabPages.Remove(TaskAddPage);
             if (ss != null && ss.Users != null && ss.Users != "")
             {
                 string[] l = ss.Users.Split();
@@ -92,6 +97,7 @@ namespace CRM
                 foreach (string s in l) userlist.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
             }
             Update();
+            DeleteButton.Enabled = false;
         }
         public void GetUsers(List<User> users)
         {
@@ -128,6 +134,7 @@ namespace CRM
         }
         void Update()
         {
+            UsersListBox.DataSource = null;
             if (flag == 0)
             {
                 if (user.Role == "normal")
@@ -140,12 +147,10 @@ namespace CRM
                 }
                 List<User> users = db.Users.ToList();
                 users.Remove(user);
-                if (UsersBox.Text != "") users = users.FindAll(x => x.Login.Contains(UsersBox.Text));
-                if (users.Count > 0) UsersListBox.DataSource = users;
-                else UsersListBox.DataSource = null;
+                if (UsersBox.Text != "") users = users.FindAll(x => x.Login.Contains(UsersBox.Text));UsersListBox.DataSource = users;
+                UsersListBox.DataSource = users;
             }
-            else if (taskusers.Count > 0) UsersListBox.DataSource = taskusers;
-            else UsersListBox.DataSource = null;
+            else UsersListBox.DataSource = taskusers;
         }
 
         private void UsersBox_TextChanged(object sender, EventArgs e)
@@ -189,6 +194,16 @@ namespace CRM
             TaskTab.TabPages.Add(TaskAddPage);
             taskusers.Clear();
             userlist.Clear();
+        }
+
+        private void UsersPage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CleanAllUsersButton_Click(object sender, EventArgs e)
+        {
+            maintaskusers = "";
         }
     }
 }

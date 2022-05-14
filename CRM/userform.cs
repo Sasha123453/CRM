@@ -13,16 +13,18 @@ namespace CRM
 {
     public partial class userform : Form
     {
+        int flag = 0;
         User user;
         ApplicationContext db;
-        List<Task> tasks;
+        List<Task> tasks = new List<Task>();
+        List<Task> ManageTasks = new List<Task>();
         public userform(User username)
         {
             InitializeComponent();
             db = new ApplicationContext();
-            tasks = new List<Task>();
             user = username;
             MainPage.TabPages.Remove(ChangeData);
+            MainPage.TabPages.Remove(TaskPage);
             listBox1.DataSource = tasks;
             UserPage.Text = user.Login;
             Update();
@@ -40,6 +42,7 @@ namespace CRM
         }
         void Update()
         {
+            listBox1.DataSource = null;
             tasks = db.Tasks.ToList();
             tasks = tasks.FindAll(x => x.Completed == 0 && x.Hidden == 0 && x.Users != null && (x.Users.Split().Contains(user.id.ToString()) || x.Users.Split().Contains("everyone")));
             listBox1.DataSource = tasks;
@@ -92,8 +95,10 @@ namespace CRM
             {
                 return;
             }
-            Form form = new usertasks(user);
-            form.ShowDialog();
+            MainPage.TabPages.Remove(UserPage);
+            MainPage.TabPages.Add(TaskPage);
+            ManageTasks = db.Tasks.Where(x => x.Author == user.id.ToString()).ToList();
+            UpdateTask();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -118,8 +123,9 @@ namespace CRM
             user.Login = LoginBox.Text;
             if (PassBox.Text != "") user.Password = GetHash(PassBox.Text);
             db.SaveChanges();
-            this.Hide();
-            this.Close();
+            MainPage.TabPages.Remove(ChangeData);
+            MainPage.TabPages.Add(UserPage);
+
         }
         public string GetHash(string input)
         {
@@ -127,6 +133,78 @@ namespace CRM
             var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
 
             return Convert.ToBase64String(hash);
+        }
+        void UpdateTask()
+        {
+            ManageTasks = db.Tasks.Where(x => x.Author == user.id.ToString()).ToList();
+            if (flag == 0) TaskListBox.DataSource = ManageTasks;
+            if (flag == 1) TaskListBox.DataSource = ManageTasks.FindAll(x => x.Completed == 1);
+            if (flag == 2) TaskListBox.DataSource = ManageTasks.FindAll(x => x.Completed == 0);
+        }
+
+        private void TaskListBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listBox1.SelectedIndex == -1) return;
+            Task task = listBox1.SelectedItem as Task;
+            MessageBox.Show("Описание: " + task.Description + "\n Комментарий: " + task.Commentary);
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            Form form = new addedit(-1, user.Login);
+            form.ShowDialog();
+            UpdateTask();
+        }
+
+        private void UpdateAll_Click(object sender, EventArgs e)
+        {
+            flag = 0;
+            UpdateTask();
+        }
+
+        private void UpdateCompleted_Click(object sender, EventArgs e)
+        {
+            flag = 1;
+            UpdateTask();
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            if (TaskListBox.SelectedIndex == -1) return;
+            Task task = TaskListBox.SelectedItem as Task;
+            Form form = new addedit(task.id, user.Login);
+            form.ShowDialog();
+            Update();
+        }
+
+        private void CheckButton_Click(object sender, EventArgs e)
+        {
+            if (TaskListBox.SelectedIndex == -1) return;
+            Task task = TaskListBox.SelectedItem as Task;
+            task.Hidden = 1;
+            db.SaveChanges();
+            UpdateTask();
+        }
+
+        private void DelButton_Click(object sender, EventArgs e)
+        {
+            if (TaskListBox.SelectedIndex == -1) return;
+            Task task = TaskListBox.SelectedItem as Task;
+            db.Tasks.Remove(task);
+            db.SaveChanges();
+            Update();
+        }
+
+        private void UpdateNotCompleted_Click(object sender, EventArgs e)
+        {
+            flag = 2;
+            Update();
+        }
+
+        private void TaskBackButton_Click(object sender, EventArgs e)
+        {
+            MainPage.TabPages.Remove(TaskPage);
+            MainPage.TabPages.Add(UserPage);
         }
     }
 }

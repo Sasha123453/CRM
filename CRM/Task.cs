@@ -47,7 +47,7 @@ namespace CRM
             if (hidden == 1) l = "Скрыта";
             ApplicationContext db = new ApplicationContext();
             User user = db.Users.Where(x => x.id.ToString() == author).FirstOrDefault();
-            return $"{user.Login} {l} {author}: {Taskname} ";
+            return $"{l} {user.Login}: {Taskname}";
         }
     }
 }

@@ -26,6 +26,7 @@ namespace CRM
             if (user.Friends != null && user.Friends != "")
             {
                 string[] l = user.Friends.Split();
+                MessageBox.Show(user.Friends);
                 foreach (string s in l) userfriends.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
             }
             if (user.Querys != null && user.Querys != "")
@@ -48,7 +49,7 @@ namespace CRM
             if (flag == 2)
             {
                 if (tempuser.Friends != null && tempuser.Friends != "") tempuser.Friends += " " + user.id.ToString();
-                tempuser.Friends = user.id.ToString();
+                else tempuser.Friends = user.id.ToString(); 
                 userquerys.Remove(tempuser);
                 userfriends.Add(tempuser);
                 AddToFriends(user, userfriends);
@@ -102,6 +103,7 @@ namespace CRM
         }
         void Update()
         {
+            listBox1.DataSource = null;
             if (flag == 0)
             {
                 List<User> users = db.Users.ToList();
@@ -109,17 +111,9 @@ namespace CRM
                 if (textBox1.Text != "") users = users.FindAll(x => x.Login.ToString().Contains(textBox1.Text));
                 listBox1.DataSource = users;
             }
-            if (flag == 1)
-            {
-                if (userfriends.Count > 0) listBox1.DataSource = userfriends;
-                else listBox1.DataSource = null; 
-            }
-            if (flag == 2)
-            {
-                if (userquerys.Count > 0) listBox1.DataSource = userquerys;
-                else listBox1.DataSource = null;
-            }
-            listBox1.Update();
+            if (flag == 1) listBox1.DataSource = userfriends;
+
+            if (flag == 2) listBox1.DataSource = userquerys;
         }
 
         private void showfriends_Click(object sender, EventArgs e)

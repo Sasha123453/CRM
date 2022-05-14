@@ -83,9 +83,7 @@ C:\Users\shelk\OneDrive\Рабочий стол\Игры\CRM\CRM\obj\Debug\CRM.c
 C:\Users\shelk\OneDrive\Рабочий стол\Игры\CRM\CRM\obj\Debug\CRM.csproj.SuggestedBindingRedirects.cache
 C:\Users\shelk\OneDrive\Рабочий стол\Игры\CRM\CRM\obj\Debug\CRM.addedit.resources
 C:\Users\shelk\OneDrive\Рабочий стол\Игры\CRM\CRM\obj\Debug\CRM.adminform.resources
-C:\Users\shelk\OneDrive\Рабочий стол\Игры\CRM\CRM\obj\Debug\CRM.changepass.resources
 C:\Users\shelk\OneDrive\Рабочий стол\Игры\CRM\CRM\obj\Debug\CRM.Form1.resources
-C:\Users\shelk\OneDrive\Рабочий стол\Игры\CRM\CRM\obj\Debug\CRM.usertasks.resources
 C:\Users\shelk\OneDrive\Рабочий стол\Игры\CRM\CRM\obj\Debug\CRM.friends.resources
 C:\Users\shelk\OneDrive\Рабочий стол\Игры\CRM\CRM\obj\Debug\CRM.Properties.Resources.resources
 C:\Users\shelk\OneDrive\Рабочий стол\Игры\CRM\CRM\obj\Debug\CRM.userform.resources

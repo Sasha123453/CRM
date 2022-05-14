@@ -45,9 +45,20 @@
             this.PassBox = new System.Windows.Forms.TextBox();
             this.LoginBox = new System.Windows.Forms.TextBox();
             this.ChangeDataButton = new System.Windows.Forms.Button();
+            this.TaskPage = new System.Windows.Forms.TabPage();
+            this.UpdateNotCompleted = new System.Windows.Forms.Button();
+            this.UpdateCompleted = new System.Windows.Forms.Button();
+            this.UpdateAll = new System.Windows.Forms.Button();
+            this.DelButton = new System.Windows.Forms.Button();
+            this.CheckButton = new System.Windows.Forms.Button();
+            this.EditButton = new System.Windows.Forms.Button();
+            this.AddButton = new System.Windows.Forms.Button();
+            this.TaskListBox = new System.Windows.Forms.ListBox();
+            this.TaskBackButton = new System.Windows.Forms.Button();
             this.MainPage.SuspendLayout();
             this.UserPage.SuspendLayout();
             this.ChangeData.SuspendLayout();
+            this.TaskPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox1
@@ -147,11 +158,12 @@
             // 
             this.MainPage.Controls.Add(this.UserPage);
             this.MainPage.Controls.Add(this.ChangeData);
+            this.MainPage.Controls.Add(this.TaskPage);
             this.MainPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPage.Location = new System.Drawing.Point(0, 0);
             this.MainPage.Name = "MainPage";
             this.MainPage.SelectedIndex = 0;
-            this.MainPage.Size = new System.Drawing.Size(757, 625);
+            this.MainPage.Size = new System.Drawing.Size(757, 570);
             this.MainPage.TabIndex = 9;
             // 
             // UserPage
@@ -167,7 +179,7 @@
             this.UserPage.Location = new System.Drawing.Point(4, 25);
             this.UserPage.Name = "UserPage";
             this.UserPage.Padding = new System.Windows.Forms.Padding(3);
-            this.UserPage.Size = new System.Drawing.Size(749, 596);
+            this.UserPage.Size = new System.Drawing.Size(749, 541);
             this.UserPage.TabIndex = 0;
             this.UserPage.Text = "tabpage1";
             this.UserPage.UseVisualStyleBackColor = true;
@@ -183,7 +195,7 @@
             this.ChangeData.Location = new System.Drawing.Point(4, 25);
             this.ChangeData.Name = "ChangeData";
             this.ChangeData.Padding = new System.Windows.Forms.Padding(3);
-            this.ChangeData.Size = new System.Drawing.Size(749, 596);
+            this.ChangeData.Size = new System.Drawing.Size(749, 541);
             this.ChangeData.TabIndex = 1;
             this.ChangeData.Text = "?";
             this.ChangeData.UseVisualStyleBackColor = true;
@@ -192,7 +204,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.11F);
-            this.label2.Location = new System.Drawing.Point(151, 220);
+            this.label2.Location = new System.Drawing.Point(113, 284);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 24);
             this.label2.TabIndex = 11;
@@ -203,7 +215,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.11F);
-            this.label1.Location = new System.Drawing.Point(151, 117);
+            this.label1.Location = new System.Drawing.Point(113, 193);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 24);
             this.label1.TabIndex = 10;
@@ -212,7 +224,7 @@
             // BackDataButton
             // 
             this.BackDataButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.BackDataButton.Location = new System.Drawing.Point(8, 34);
+            this.BackDataButton.Location = new System.Drawing.Point(23, 52);
             this.BackDataButton.Name = "BackDataButton";
             this.BackDataButton.Size = new System.Drawing.Size(171, 57);
             this.BackDataButton.TabIndex = 9;
@@ -223,7 +235,7 @@
             // PassBox
             // 
             this.PassBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.1F);
-            this.PassBox.Location = new System.Drawing.Point(250, 214);
+            this.PassBox.Location = new System.Drawing.Point(212, 280);
             this.PassBox.Name = "PassBox";
             this.PassBox.Size = new System.Drawing.Size(277, 30);
             this.PassBox.TabIndex = 8;
@@ -231,7 +243,7 @@
             // LoginBox
             // 
             this.LoginBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.1F);
-            this.LoginBox.Location = new System.Drawing.Point(250, 111);
+            this.LoginBox.Location = new System.Drawing.Point(212, 187);
             this.LoginBox.Name = "LoginBox";
             this.LoginBox.Size = new System.Drawing.Size(277, 30);
             this.LoginBox.TabIndex = 7;
@@ -239,7 +251,7 @@
             // ChangeDataButton
             // 
             this.ChangeDataButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.12F);
-            this.ChangeDataButton.Location = new System.Drawing.Point(250, 327);
+            this.ChangeDataButton.Location = new System.Drawing.Point(212, 352);
             this.ChangeDataButton.Name = "ChangeDataButton";
             this.ChangeDataButton.Size = new System.Drawing.Size(277, 75);
             this.ChangeDataButton.TabIndex = 6;
@@ -247,11 +259,120 @@
             this.ChangeDataButton.UseVisualStyleBackColor = true;
             this.ChangeDataButton.Click += new System.EventHandler(this.ChangeDataButton_Click);
             // 
+            // TaskPage
+            // 
+            this.TaskPage.Controls.Add(this.TaskBackButton);
+            this.TaskPage.Controls.Add(this.UpdateNotCompleted);
+            this.TaskPage.Controls.Add(this.UpdateCompleted);
+            this.TaskPage.Controls.Add(this.UpdateAll);
+            this.TaskPage.Controls.Add(this.DelButton);
+            this.TaskPage.Controls.Add(this.CheckButton);
+            this.TaskPage.Controls.Add(this.EditButton);
+            this.TaskPage.Controls.Add(this.AddButton);
+            this.TaskPage.Controls.Add(this.TaskListBox);
+            this.TaskPage.Location = new System.Drawing.Point(4, 25);
+            this.TaskPage.Name = "TaskPage";
+            this.TaskPage.Padding = new System.Windows.Forms.Padding(3);
+            this.TaskPage.Size = new System.Drawing.Size(749, 541);
+            this.TaskPage.TabIndex = 2;
+            this.TaskPage.Text = "Задачи";
+            this.TaskPage.UseVisualStyleBackColor = true;
+            // 
+            // UpdateNotCompleted
+            // 
+            this.UpdateNotCompleted.Location = new System.Drawing.Point(571, 293);
+            this.UpdateNotCompleted.Name = "UpdateNotCompleted";
+            this.UpdateNotCompleted.Size = new System.Drawing.Size(137, 99);
+            this.UpdateNotCompleted.TabIndex = 15;
+            this.UpdateNotCompleted.Text = "Отобразить невыполненные";
+            this.UpdateNotCompleted.UseVisualStyleBackColor = true;
+            this.UpdateNotCompleted.Click += new System.EventHandler(this.UpdateNotCompleted_Click);
+            // 
+            // UpdateCompleted
+            // 
+            this.UpdateCompleted.Location = new System.Drawing.Point(571, 187);
+            this.UpdateCompleted.Name = "UpdateCompleted";
+            this.UpdateCompleted.Size = new System.Drawing.Size(137, 97);
+            this.UpdateCompleted.TabIndex = 14;
+            this.UpdateCompleted.Text = "Отобразить выполненные";
+            this.UpdateCompleted.UseVisualStyleBackColor = true;
+            this.UpdateCompleted.Click += new System.EventHandler(this.UpdateCompleted_Click);
+            // 
+            // UpdateAll
+            // 
+            this.UpdateAll.Location = new System.Drawing.Point(571, 84);
+            this.UpdateAll.Name = "UpdateAll";
+            this.UpdateAll.Size = new System.Drawing.Size(137, 94);
+            this.UpdateAll.TabIndex = 13;
+            this.UpdateAll.Text = "Отобразить всё";
+            this.UpdateAll.UseVisualStyleBackColor = true;
+            this.UpdateAll.Click += new System.EventHandler(this.UpdateAll_Click);
+            // 
+            // DelButton
+            // 
+            this.DelButton.Location = new System.Drawing.Point(457, 402);
+            this.DelButton.Name = "DelButton";
+            this.DelButton.Size = new System.Drawing.Size(96, 65);
+            this.DelButton.TabIndex = 12;
+            this.DelButton.Text = "Удалить";
+            this.DelButton.UseVisualStyleBackColor = true;
+            this.DelButton.Click += new System.EventHandler(this.DelButton_Click);
+            // 
+            // CheckButton
+            // 
+            this.CheckButton.Location = new System.Drawing.Point(338, 402);
+            this.CheckButton.Name = "CheckButton";
+            this.CheckButton.Size = new System.Drawing.Size(108, 65);
+            this.CheckButton.TabIndex = 11;
+            this.CheckButton.Text = "Скрыть";
+            this.CheckButton.UseVisualStyleBackColor = true;
+            this.CheckButton.Click += new System.EventHandler(this.CheckButton_Click);
+            // 
+            // EditButton
+            // 
+            this.EditButton.Location = new System.Drawing.Point(223, 402);
+            this.EditButton.Name = "EditButton";
+            this.EditButton.Size = new System.Drawing.Size(102, 65);
+            this.EditButton.TabIndex = 10;
+            this.EditButton.Text = "Изменить";
+            this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
+            // 
+            // AddButton
+            // 
+            this.AddButton.Location = new System.Drawing.Point(93, 402);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(106, 65);
+            this.AddButton.TabIndex = 9;
+            this.AddButton.Text = "Добавить";
+            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
+            // 
+            // TaskListBox
+            // 
+            this.TaskListBox.FormattingEnabled = true;
+            this.TaskListBox.ItemHeight = 16;
+            this.TaskListBox.Location = new System.Drawing.Point(93, 84);
+            this.TaskListBox.Name = "TaskListBox";
+            this.TaskListBox.Size = new System.Drawing.Size(460, 308);
+            this.TaskListBox.TabIndex = 8;
+            this.TaskListBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TaskListBox_MouseDoubleClick);
+            // 
+            // TaskBackButton
+            // 
+            this.TaskBackButton.Location = new System.Drawing.Point(21, 26);
+            this.TaskBackButton.Name = "TaskBackButton";
+            this.TaskBackButton.Size = new System.Drawing.Size(98, 41);
+            this.TaskBackButton.TabIndex = 17;
+            this.TaskBackButton.Text = "Назад";
+            this.TaskBackButton.UseVisualStyleBackColor = true;
+            this.TaskBackButton.Click += new System.EventHandler(this.TaskBackButton_Click);
+            // 
             // userform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(757, 625);
+            this.ClientSize = new System.Drawing.Size(757, 570);
             this.Controls.Add(this.MainPage);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "userform";
@@ -261,6 +382,7 @@
             this.UserPage.ResumeLayout(false);
             this.ChangeData.ResumeLayout(false);
             this.ChangeData.PerformLayout();
+            this.TaskPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -284,5 +406,15 @@
         private System.Windows.Forms.TextBox PassBox;
         private System.Windows.Forms.TextBox LoginBox;
         private System.Windows.Forms.Button ChangeDataButton;
+        private System.Windows.Forms.TabPage TaskPage;
+        private System.Windows.Forms.Button UpdateNotCompleted;
+        private System.Windows.Forms.Button UpdateCompleted;
+        private System.Windows.Forms.Button UpdateAll;
+        private System.Windows.Forms.Button DelButton;
+        private System.Windows.Forms.Button CheckButton;
+        private System.Windows.Forms.Button EditButton;
+        private System.Windows.Forms.Button AddButton;
+        private System.Windows.Forms.ListBox TaskListBox;
+        private System.Windows.Forms.Button TaskBackButton;
     }
 }

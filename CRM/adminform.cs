@@ -79,6 +79,7 @@ namespace CRM
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
+            if (listBox1.SelectedIndex == -1) return;
             Task task = listBox1.SelectedItem as Task;
             MessageBox.Show("Описание: " + task.Description +"\n Комментарий: " + task.Commentary);
         }
