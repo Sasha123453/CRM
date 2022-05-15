@@ -209,9 +209,9 @@
             // 
             // BackButton
             // 
-            this.BackButton.Location = new System.Drawing.Point(605, 121);
+            this.BackButton.Location = new System.Drawing.Point(605, 113);
             this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(114, 54);
+            this.BackButton.Size = new System.Drawing.Size(114, 62);
             this.BackButton.TabIndex = 11;
             this.BackButton.Text = "Назад";
             this.BackButton.UseVisualStyleBackColor = true;
@@ -219,9 +219,9 @@
             // 
             // CleanAll
             // 
-            this.CleanAll.Location = new System.Drawing.Point(605, 217);
+            this.CleanAll.Location = new System.Drawing.Point(605, 211);
             this.CleanAll.Name = "CleanAll";
-            this.CleanAll.Size = new System.Drawing.Size(114, 54);
+            this.CleanAll.Size = new System.Drawing.Size(114, 60);
             this.CleanAll.TabIndex = 10;
             this.CleanAll.Text = "Очистить";
             this.CleanAll.UseVisualStyleBackColor = true;
@@ -229,9 +229,9 @@
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(605, 312);
+            this.SaveButton.Location = new System.Drawing.Point(605, 310);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(114, 54);
+            this.SaveButton.Size = new System.Drawing.Size(114, 56);
             this.SaveButton.TabIndex = 9;
             this.SaveButton.Text = "Сохранить";
             this.SaveButton.UseVisualStyleBackColor = true;
@@ -239,9 +239,9 @@
             // 
             // ShowAll
             // 
-            this.ShowAll.Location = new System.Drawing.Point(465, 383);
+            this.ShowAll.Location = new System.Drawing.Point(454, 383);
             this.ShowAll.Name = "ShowAll";
-            this.ShowAll.Size = new System.Drawing.Size(114, 54);
+            this.ShowAll.Size = new System.Drawing.Size(125, 54);
             this.ShowAll.TabIndex = 8;
             this.ShowAll.Text = "Показать всех";
             this.ShowAll.UseVisualStyleBackColor = true;
@@ -249,19 +249,19 @@
             // 
             // ShowUser
             // 
-            this.ShowUser.Location = new System.Drawing.Point(320, 383);
+            this.ShowUser.Location = new System.Drawing.Point(309, 383);
             this.ShowUser.Name = "ShowUser";
-            this.ShowUser.Size = new System.Drawing.Size(102, 54);
+            this.ShowUser.Size = new System.Drawing.Size(119, 54);
             this.ShowUser.TabIndex = 7;
-            this.ShowUser.Text = "Юзеры с задачи";
+            this.ShowUser.Text = "Пользователи с задачи";
             this.ShowUser.UseVisualStyleBackColor = true;
             this.ShowUser.Click += new System.EventHandler(this.ShowUser_Click);
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(176, 383);
+            this.DeleteButton.Location = new System.Drawing.Point(167, 383);
             this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(109, 54);
+            this.DeleteButton.Size = new System.Drawing.Size(118, 54);
             this.DeleteButton.TabIndex = 6;
             this.DeleteButton.Text = "Удалить";
             this.DeleteButton.UseVisualStyleBackColor = true;
@@ -271,7 +271,7 @@
             // 
             this.AddButton.Location = new System.Drawing.Point(20, 383);
             this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(111, 54);
+            this.AddButton.Size = new System.Drawing.Size(120, 54);
             this.AddButton.TabIndex = 3;
             this.AddButton.Text = "Добавить";
             this.AddButton.UseVisualStyleBackColor = true;
@@ -303,7 +303,7 @@
             this.Controls.Add(this.TaskTab);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "addedit";
-            this.Text = "Редактор задач";
+            this.Text = "Редактирование задач";
             this.Load += new System.EventHandler(this.addedit_Load);
             this.TaskTab.ResumeLayout(false);
             this.TaskAddPage.ResumeLayout(false);
