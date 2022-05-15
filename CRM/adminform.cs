@@ -49,7 +49,10 @@ namespace CRM
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            if (listBox1.SelectedIndex == -1) return;
+            Task task = listBox1.SelectedItem as Task;
+            if (task.Hidden == 1) deletebutton.Text = "Убрать скрытие";
+            else deletebutton.Text = "Скрыть задачу";
         }
 
         private void editbutton_Click(object sender, EventArgs e)
@@ -72,7 +75,11 @@ namespace CRM
         {
             if (listBox1.SelectedIndex == -1) return;
             Task task = listBox1.SelectedItem as Task;
-            task.Hidden = 1;
+            if (deletebutton.Text == "Убрать скрытие")
+            {
+                task.Hidden = 0;
+            }
+            else task.Hidden = 1;
             db.SaveChanges();
             Update();
         }

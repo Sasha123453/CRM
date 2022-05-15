@@ -46,6 +46,7 @@
             this.LoginBox = new System.Windows.Forms.TextBox();
             this.ChangeDataButton = new System.Windows.Forms.Button();
             this.TaskPage = new System.Windows.Forms.TabPage();
+            this.TaskBackButton = new System.Windows.Forms.Button();
             this.UpdateNotCompleted = new System.Windows.Forms.Button();
             this.UpdateCompleted = new System.Windows.Forms.Button();
             this.UpdateAll = new System.Windows.Forms.Button();
@@ -54,7 +55,6 @@
             this.EditButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.TaskListBox = new System.Windows.Forms.ListBox();
-            this.TaskBackButton = new System.Windows.Forms.Button();
             this.MainPage.SuspendLayout();
             this.UserPage.SuspendLayout();
             this.ChangeData.SuspendLayout();
@@ -71,7 +71,7 @@
             this.listBox1.Size = new System.Drawing.Size(348, 212);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
+            this.listBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
             // 
             // solutionbutton
             // 
@@ -126,7 +126,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(156, 73);
             this.button1.TabIndex = 6;
-            this.button1.Text = "Поменять данные";
+            this.button1.Text = "Изменить данные";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -197,7 +197,7 @@
             this.ChangeData.Padding = new System.Windows.Forms.Padding(3);
             this.ChangeData.Size = new System.Drawing.Size(749, 541);
             this.ChangeData.TabIndex = 1;
-            this.ChangeData.Text = "?";
+            this.ChangeData.Text = "Изменение данных";
             this.ChangeData.UseVisualStyleBackColor = true;
             // 
             // label2
@@ -223,7 +223,7 @@
             // 
             // BackDataButton
             // 
-            this.BackDataButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
+            this.BackDataButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.1F);
             this.BackDataButton.Location = new System.Drawing.Point(23, 52);
             this.BackDataButton.Name = "BackDataButton";
             this.BackDataButton.Size = new System.Drawing.Size(171, 57);
@@ -277,6 +277,17 @@
             this.TaskPage.TabIndex = 2;
             this.TaskPage.Text = "Задачи";
             this.TaskPage.UseVisualStyleBackColor = true;
+            this.TaskPage.Click += new System.EventHandler(this.TaskPage_Click);
+            // 
+            // TaskBackButton
+            // 
+            this.TaskBackButton.Location = new System.Drawing.Point(8, 26);
+            this.TaskBackButton.Name = "TaskBackButton";
+            this.TaskBackButton.Size = new System.Drawing.Size(98, 41);
+            this.TaskBackButton.TabIndex = 17;
+            this.TaskBackButton.Text = "Назад";
+            this.TaskBackButton.UseVisualStyleBackColor = true;
+            this.TaskBackButton.Click += new System.EventHandler(this.TaskBackButton_Click);
             // 
             // UpdateNotCompleted
             // 
@@ -314,7 +325,7 @@
             this.DelButton.Name = "DelButton";
             this.DelButton.Size = new System.Drawing.Size(96, 65);
             this.DelButton.TabIndex = 12;
-            this.DelButton.Text = "Удалить";
+            this.DelButton.Text = "Удалить задачу";
             this.DelButton.UseVisualStyleBackColor = true;
             this.DelButton.Click += new System.EventHandler(this.DelButton_Click);
             // 
@@ -324,17 +335,17 @@
             this.CheckButton.Name = "CheckButton";
             this.CheckButton.Size = new System.Drawing.Size(108, 65);
             this.CheckButton.TabIndex = 11;
-            this.CheckButton.Text = "Скрыть";
+            this.CheckButton.Text = "Скрыть задачу";
             this.CheckButton.UseVisualStyleBackColor = true;
             this.CheckButton.Click += new System.EventHandler(this.CheckButton_Click);
             // 
             // EditButton
             // 
-            this.EditButton.Location = new System.Drawing.Point(223, 402);
+            this.EditButton.Location = new System.Drawing.Point(220, 402);
             this.EditButton.Name = "EditButton";
             this.EditButton.Size = new System.Drawing.Size(102, 65);
             this.EditButton.TabIndex = 10;
-            this.EditButton.Text = "Изменить";
+            this.EditButton.Text = "Изменить задачу";
             this.EditButton.UseVisualStyleBackColor = true;
             this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
             // 
@@ -344,7 +355,7 @@
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(106, 65);
             this.AddButton.TabIndex = 9;
-            this.AddButton.Text = "Добавить";
+            this.AddButton.Text = "Добавить задача";
             this.AddButton.UseVisualStyleBackColor = true;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
@@ -356,17 +367,8 @@
             this.TaskListBox.Name = "TaskListBox";
             this.TaskListBox.Size = new System.Drawing.Size(460, 308);
             this.TaskListBox.TabIndex = 8;
+            this.TaskListBox.SelectedIndexChanged += new System.EventHandler(this.TaskListBox_SelectedIndexChanged);
             this.TaskListBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TaskListBox_MouseDoubleClick);
-            // 
-            // TaskBackButton
-            // 
-            this.TaskBackButton.Location = new System.Drawing.Point(21, 26);
-            this.TaskBackButton.Name = "TaskBackButton";
-            this.TaskBackButton.Size = new System.Drawing.Size(98, 41);
-            this.TaskBackButton.TabIndex = 17;
-            this.TaskBackButton.Text = "Назад";
-            this.TaskBackButton.UseVisualStyleBackColor = true;
-            this.TaskBackButton.Click += new System.EventHandler(this.TaskBackButton_Click);
             // 
             // userform
             // 

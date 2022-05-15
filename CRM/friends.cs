@@ -26,7 +26,6 @@ namespace CRM
             if (user.Friends != null && user.Friends != "")
             {
                 string[] l = user.Friends.Split();
-                MessageBox.Show(user.Friends);
                 foreach (string s in l) userfriends.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
             }
             if (user.Querys != null && user.Querys != "")
@@ -56,9 +55,9 @@ namespace CRM
                 AddToQuerys(user, userquerys);
                 return;
             }
-            if (tempuser.Querys != null && tempuser.Querys.Split().Contains(user.Login) || tempuser.Friends != null && tempuser.Friends.Split().Contains(user.Login))
+            if (tempuser.Querys != null && (tempuser.Querys.Split().Contains(user.Login) || tempuser.Friends.Split().Contains(user.Login)))
             {
-                MessageBox.Show("Вы уже отправили запрос этому пользователю");
+                MessageBox.Show("Вы уже отправили запрос этому пользователю или добавили его в друзьяы");
                 return;
             }
             if (tempuser.Querys != null && tempuser.Querys != "") tempuser.Querys += " " + user.id.ToString();

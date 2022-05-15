@@ -118,7 +118,7 @@
             this.Controls.Add(this.addbutton);
             this.Controls.Add(this.listBox1);
             this.Name = "friends";
-            this.Text = "Form3";
+            this.Text = "Друзья";
             this.Load += new System.EventHandler(this.friends_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

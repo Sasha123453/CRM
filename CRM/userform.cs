@@ -30,12 +30,6 @@ namespace CRM
             Update();
         }
 
-        private void listBox1_DoubleClick(object sender, EventArgs e)
-        {
-            Task task = listBox1.SelectedItem as Task;
-            MessageBox.Show("Описание: " + task.Description);
-        }
-
         private void userform_Load(object sender, EventArgs e)
         {
 
@@ -44,7 +38,8 @@ namespace CRM
         {
             listBox1.DataSource = null;
             tasks = db.Tasks.ToList();
-            tasks = tasks.FindAll(x => x.Completed == 0 && x.Hidden == 0 && x.Users != null && (x.Users.Split().Contains(user.id.ToString()) || x.Users.Split().Contains("everyone")));
+            tasks = tasks.FindAll(x => x.Completed == 0 && x.Hidden == 0 && x.Users != null);
+            tasks = tasks.FindAll(x => x.Users.Split().Contains(user.id.ToString()) || x.Users.Split().Contains("everyone"));
             listBox1.DataSource = tasks;
         }
 
@@ -87,6 +82,7 @@ namespace CRM
         {
             Form form = new friends(user.id);
             form.ShowDialog();
+            user = db.Users.Where(x => user.id == x.id).FirstOrDefault();
         }
 
         private void taskcontrol_Click(object sender, EventArgs e)
@@ -144,8 +140,8 @@ namespace CRM
 
         private void TaskListBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (listBox1.SelectedIndex == -1) return;
-            Task task = listBox1.SelectedItem as Task;
+            if (TaskListBox.SelectedIndex == -1) return;
+            Task task = TaskListBox.SelectedItem as Task;
             MessageBox.Show("Описание: " + task.Description + "\n Комментарий: " + task.Commentary);
         }
 
@@ -205,6 +201,40 @@ namespace CRM
         {
             MainPage.TabPages.Remove(TaskPage);
             MainPage.TabPages.Add(UserPage);
+        }
+
+        private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listBox1.SelectedIndex == -1) return;
+            Task task = listBox1.SelectedItem as Task;
+            MessageBox.Show("Описание: " + task.Description + "\n Комментарий: " + task.Commentary);
+        }
+
+        private void UnhideButton_Click(object sender, EventArgs e)
+        {
+            if (TaskListBox.SelectedIndex == -1) return;
+            Task task = TaskListBox.SelectedItem as Task;
+            task.Hidden = 0;
+            db.SaveChanges();
+            UpdateTask();
+        }
+
+        private void TaskPage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TaskListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TaskListBox.SelectedIndex == -1) return;
+            Task task = TaskListBox.SelectedItem as Task;
+            if (CheckButton.Text == "Убрать скрытие")
+            {
+                task.Hidden = 0;
+            }
+            else task.Hidden = 1;
+            db.SaveChanges();
+            Update();
         }
     }
 }

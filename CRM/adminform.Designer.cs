@@ -50,13 +50,13 @@
             this.LoginBox = new System.Windows.Forms.TextBox();
             this.ChangeDataButton = new System.Windows.Forms.Button();
             this.UserPage = new System.Windows.Forms.TabPage();
+            this.BackButton = new System.Windows.Forms.Button();
             this.BanButton = new System.Windows.Forms.Button();
             this.UnbanButton = new System.Windows.Forms.Button();
             this.MakeUser = new System.Windows.Forms.Button();
             this.makeadmin = new System.Windows.Forms.Button();
             this.UserSearchBox = new System.Windows.Forms.TextBox();
             this.UsersBox = new System.Windows.Forms.ListBox();
-            this.BackButton = new System.Windows.Forms.Button();
             this.MainPage.SuspendLayout();
             this.AdminPage.SuspendLayout();
             this.ChangeData.SuspendLayout();
@@ -66,7 +66,7 @@
             // userlistbutton
             // 
             this.userlistbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.userlistbutton.Location = new System.Drawing.Point(9, 28);
+            this.userlistbutton.Location = new System.Drawing.Point(10, 58);
             this.userlistbutton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.userlistbutton.Name = "userlistbutton";
             this.userlistbutton.Size = new System.Drawing.Size(157, 57);
@@ -79,7 +79,7 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(181, 87);
+            this.listBox1.Location = new System.Drawing.Point(182, 58);
             this.listBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(415, 212);
@@ -90,46 +90,46 @@
             // editbutton
             // 
             this.editbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.editbutton.Location = new System.Drawing.Point(181, 319);
+            this.editbutton.Location = new System.Drawing.Point(182, 286);
             this.editbutton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.editbutton.Name = "editbutton";
-            this.editbutton.Size = new System.Drawing.Size(108, 41);
+            this.editbutton.Size = new System.Drawing.Size(114, 58);
             this.editbutton.TabIndex = 2;
-            this.editbutton.Text = "Изменить";
+            this.editbutton.Text = "Изменить задачу";
             this.editbutton.UseVisualStyleBackColor = true;
             this.editbutton.Click += new System.EventHandler(this.editbutton_Click);
             // 
             // addbutton
             // 
             this.addbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.addbutton.Location = new System.Drawing.Point(335, 319);
+            this.addbutton.Location = new System.Drawing.Point(326, 285);
             this.addbutton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addbutton.Name = "addbutton";
-            this.addbutton.Size = new System.Drawing.Size(117, 39);
+            this.addbutton.Size = new System.Drawing.Size(123, 60);
             this.addbutton.TabIndex = 3;
-            this.addbutton.Text = "Добавить";
+            this.addbutton.Text = "Добавить задачу";
             this.addbutton.UseVisualStyleBackColor = true;
             this.addbutton.Click += new System.EventHandler(this.addbutton_Click);
             // 
             // deletebutton
             // 
             this.deletebutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.deletebutton.Location = new System.Drawing.Point(487, 319);
+            this.deletebutton.Location = new System.Drawing.Point(478, 285);
             this.deletebutton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.deletebutton.Name = "deletebutton";
-            this.deletebutton.Size = new System.Drawing.Size(109, 39);
+            this.deletebutton.Size = new System.Drawing.Size(119, 60);
             this.deletebutton.TabIndex = 4;
-            this.deletebutton.Text = "Скрыть";
+            this.deletebutton.Text = "Скрыть задачу";
             this.deletebutton.UseVisualStyleBackColor = true;
             this.deletebutton.Click += new System.EventHandler(this.deletebutton_Click);
             // 
             // buttonshowall
             // 
             this.buttonshowall.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.buttonshowall.Location = new System.Drawing.Point(619, 215);
+            this.buttonshowall.Location = new System.Drawing.Point(632, 209);
             this.buttonshowall.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonshowall.Name = "buttonshowall";
-            this.buttonshowall.Size = new System.Drawing.Size(123, 48);
+            this.buttonshowall.Size = new System.Drawing.Size(123, 61);
             this.buttonshowall.TabIndex = 5;
             this.buttonshowall.Text = "Отобразить всё";
             this.buttonshowall.UseVisualStyleBackColor = true;
@@ -138,10 +138,10 @@
             // buttonnotcomplete
             // 
             this.buttonnotcomplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.buttonnotcomplete.Location = new System.Drawing.Point(619, 125);
+            this.buttonnotcomplete.Location = new System.Drawing.Point(632, 128);
             this.buttonnotcomplete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonnotcomplete.Name = "buttonnotcomplete";
-            this.buttonnotcomplete.Size = new System.Drawing.Size(123, 52);
+            this.buttonnotcomplete.Size = new System.Drawing.Size(123, 68);
             this.buttonnotcomplete.TabIndex = 6;
             this.buttonnotcomplete.Text = "Отобразить невыполненные";
             this.buttonnotcomplete.UseVisualStyleBackColor = true;
@@ -149,10 +149,11 @@
             // 
             // buttoncomplete
             // 
-            this.buttoncomplete.Location = new System.Drawing.Point(619, 28);
+            this.buttoncomplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
+            this.buttoncomplete.Location = new System.Drawing.Point(632, 48);
             this.buttoncomplete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttoncomplete.Name = "buttoncomplete";
-            this.buttoncomplete.Size = new System.Drawing.Size(123, 57);
+            this.buttoncomplete.Size = new System.Drawing.Size(123, 67);
             this.buttoncomplete.TabIndex = 7;
             this.buttoncomplete.Text = "Отобразить выполненные";
             this.buttoncomplete.UseVisualStyleBackColor = true;
@@ -161,19 +162,19 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.button1.Location = new System.Drawing.Point(619, 322);
+            this.button1.Location = new System.Drawing.Point(632, 285);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 39);
+            this.button1.Size = new System.Drawing.Size(123, 58);
             this.button1.TabIndex = 9;
-            this.button1.Text = "Удалить";
+            this.button1.Text = "Удалить задачу";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // exitbutton
             // 
             this.exitbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.exitbutton.Location = new System.Drawing.Point(8, 232);
+            this.exitbutton.Location = new System.Drawing.Point(10, 226);
             this.exitbutton.Margin = new System.Windows.Forms.Padding(4);
             this.exitbutton.Name = "exitbutton";
             this.exitbutton.Size = new System.Drawing.Size(155, 44);
@@ -185,19 +186,19 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.button2.Location = new System.Drawing.Point(8, 302);
+            this.button2.Location = new System.Drawing.Point(12, 285);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(155, 58);
             this.button2.TabIndex = 11;
-            this.button2.Text = "Изменить логин или пароль";
+            this.button2.Text = "Изменить данные";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // addfriends
             // 
             this.addfriends.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.addfriends.Location = new System.Drawing.Point(9, 125);
+            this.addfriends.Location = new System.Drawing.Point(10, 137);
             this.addfriends.Margin = new System.Windows.Forms.Padding(4);
             this.addfriends.Name = "addfriends";
             this.addfriends.Size = new System.Drawing.Size(155, 75);
@@ -254,7 +255,7 @@
             this.ChangeData.Padding = new System.Windows.Forms.Padding(3);
             this.ChangeData.Size = new System.Drawing.Size(778, 414);
             this.ChangeData.TabIndex = 1;
-            this.ChangeData.Text = "?";
+            this.ChangeData.Text = "Изменение данных";
             this.ChangeData.UseVisualStyleBackColor = true;
             this.ChangeData.Click += new System.EventHandler(this.ChangeData_Click);
             // 
@@ -334,6 +335,17 @@
             this.UserPage.UseVisualStyleBackColor = true;
             this.UserPage.Click += new System.EventHandler(this.UserPage_Click);
             // 
+            // BackButton
+            // 
+            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
+            this.BackButton.Location = new System.Drawing.Point(578, 27);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(97, 28);
+            this.BackButton.TabIndex = 13;
+            this.BackButton.Text = "Назад";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // BanButton
             // 
             this.BanButton.Location = new System.Drawing.Point(551, 340);
@@ -391,17 +403,6 @@
             this.UsersBox.Name = "UsersBox";
             this.UsersBox.Size = new System.Drawing.Size(629, 244);
             this.UsersBox.TabIndex = 1;
-            // 
-            // BackButton
-            // 
-            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
-            this.BackButton.Location = new System.Drawing.Point(578, 27);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(97, 28);
-            this.BackButton.TabIndex = 13;
-            this.BackButton.Text = "Назад";
-            this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // adminform
             // 

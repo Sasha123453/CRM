@@ -20,6 +20,7 @@ namespace CRM
             InitializeComponent();
             db = new ApplicationContext();
             LoginControl.TabPages.Remove(RegistrationPage);
+            User slowfix = db.Users.Where(x => x.Login == "login").FirstOrDefault();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -31,11 +32,7 @@ namespace CRM
         {
             string login = loginbox.Text;
             string password = GetHash(passbox.Text);
-            User authUser = null;
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                authUser = db.Users.Where(b => b.Login == login && b.Password == password).FirstOrDefault();
-            }
+            User authUser = db.Users.Where(b => b.Login == login && b.Password == password).FirstOrDefault();
             if (authUser != null && authUser.Banned == 0)
             {
                 if (authUser.Role == "admin" || authUser.Role == "lowadmin")
@@ -78,15 +75,15 @@ namespace CRM
 
         private void registrb_Click(object sender, EventArgs e)
         {
+            if (textBox2.Text == "")
+            {
+                MessageBox.Show("Пароль не может быть пустым");
+                return;
+            }
             string login = textBox1.Text;
             string password = GetHash(textBox2.Text);
             string role = "normal";
-
-            User checkRepeat = new User(login, password, role, null, 0, null);
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                checkRepeat = db.Users.Where(b => b.Login == login).FirstOrDefault();
-            }
+            User checkRepeat = db.Users.Where(b => b.Login == login).FirstOrDefault();
             if (checkRepeat != null)
             {
                 MessageBox.Show("Данный логин занят, выберите другой");

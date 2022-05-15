@@ -39,6 +39,7 @@
             this.allusersbutton = new System.Windows.Forms.Button();
             this.TaskTab = new System.Windows.Forms.TabControl();
             this.TaskAddPage = new System.Windows.Forms.TabPage();
+            this.CleanAllUsersButton = new System.Windows.Forms.Button();
             this.UsersPage = new System.Windows.Forms.TabPage();
             this.BackButton = new System.Windows.Forms.Button();
             this.CleanAll = new System.Windows.Forms.Button();
@@ -49,7 +50,6 @@
             this.AddButton = new System.Windows.Forms.Button();
             this.UsersBox = new System.Windows.Forms.TextBox();
             this.UsersListBox = new System.Windows.Forms.ListBox();
-            this.CleanAllUsersButton = new System.Windows.Forms.Button();
             this.TaskTab.SuspendLayout();
             this.TaskAddPage.SuspendLayout();
             this.UsersPage.SuspendLayout();
@@ -177,6 +177,16 @@
             this.TaskAddPage.Text = "Задача";
             this.TaskAddPage.UseVisualStyleBackColor = true;
             // 
+            // CleanAllUsersButton
+            // 
+            this.CleanAllUsersButton.Location = new System.Drawing.Point(60, 351);
+            this.CleanAllUsersButton.Name = "CleanAllUsersButton";
+            this.CleanAllUsersButton.Size = new System.Drawing.Size(138, 74);
+            this.CleanAllUsersButton.TabIndex = 11;
+            this.CleanAllUsersButton.Text = "Очистить всех пользователей";
+            this.CleanAllUsersButton.UseVisualStyleBackColor = true;
+            this.CleanAllUsersButton.Click += new System.EventHandler(this.CleanAllUsersButton_Click);
+            // 
             // UsersPage
             // 
             this.UsersPage.Controls.Add(this.BackButton);
@@ -285,16 +295,6 @@
             this.UsersListBox.Size = new System.Drawing.Size(559, 292);
             this.UsersListBox.TabIndex = 1;
             // 
-            // CleanAllUsersButton
-            // 
-            this.CleanAllUsersButton.Location = new System.Drawing.Point(60, 351);
-            this.CleanAllUsersButton.Name = "CleanAllUsersButton";
-            this.CleanAllUsersButton.Size = new System.Drawing.Size(138, 74);
-            this.CleanAllUsersButton.TabIndex = 11;
-            this.CleanAllUsersButton.Text = "Очистить всех пользователей";
-            this.CleanAllUsersButton.UseVisualStyleBackColor = true;
-            this.CleanAllUsersButton.Click += new System.EventHandler(this.CleanAllUsersButton_Click);
-            // 
             // addedit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -303,7 +303,7 @@
             this.Controls.Add(this.TaskTab);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "addedit";
-            this.Text = "addedit";
+            this.Text = "Редактор задач";
             this.Load += new System.EventHandler(this.addedit_Load);
             this.TaskTab.ResumeLayout(false);
             this.TaskAddPage.ResumeLayout(false);
