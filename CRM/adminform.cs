@@ -17,11 +17,11 @@ namespace CRM
         ApplicationContext db;
         List<Task> tasks;
         User User;
-        public adminform(User mainuser)
+        public adminform(int id)
         {
             InitializeComponent();
             db = new ApplicationContext();
-            User = mainuser;
+            User = db.Users.Where(x => x.id == id).FirstOrDefault();
             AdminPage.Text = User.Login;
             MainPage.TabPages.Remove(UserPage);
             MainPage.TabPages.Remove(ChangeData);
@@ -88,7 +88,8 @@ namespace CRM
         {
             if (listBox1.SelectedIndex == -1) return;
             Task task = listBox1.SelectedItem as Task;
-            MessageBox.Show("Описание: " + task.Description +"\n Комментарий: " + task.Commentary);
+            if (task.Solution == null) MessageBox.Show("Описание: " + task.Description + "\n Комментарий: " + task.Commentary);
+            else MessageBox.Show("Описание: " + task.Description +"\n Комментарий: " + task.Commentary + "\n Решение:" + task.Solution);
         }
 
         private void buttoncomplete_Click(object sender, EventArgs e)

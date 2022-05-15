@@ -37,14 +37,14 @@ namespace CRM
             {
                 if (authUser.Role == "admin" || authUser.Role == "lowadmin")
                 {
-                    Form form = new adminform(authUser);
+                    Form form = new adminform(authUser.id);
                     Hide();
                     form.ShowDialog();
                     this.Close();
                 }
                 else
                 {
-                    Form form = new userform(authUser);
+                    Form form = new userform(authUser.id);
                     Hide();
                     form.ShowDialog();
                     this.Close();

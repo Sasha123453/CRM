@@ -18,11 +18,11 @@ namespace CRM
         ApplicationContext db;
         List<Task> tasks = new List<Task>();
         List<Task> ManageTasks = new List<Task>();
-        public userform(User username)
+        public userform(int id)
         {
             InitializeComponent();
             db = new ApplicationContext();
-            user = username;
+            user = db.Users.Where(x => x.id == id).FirstOrDefault();
             MainPage.TabPages.Remove(ChangeData);
             MainPage.TabPages.Remove(TaskPage);
             listBox1.DataSource = tasks;
@@ -119,6 +119,7 @@ namespace CRM
             user.Login = LoginBox.Text;
             if (PassBox.Text != "") user.Password = GetHash(PassBox.Text);
             db.SaveChanges();
+            MessageBox.Show(user.Login);
             MainPage.TabPages.Remove(ChangeData);
             MainPage.TabPages.Add(UserPage);
 
