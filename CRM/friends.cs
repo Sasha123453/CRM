@@ -45,7 +45,12 @@ namespace CRM
         {
             if (listBox1.SelectedIndex == -1) return;
             User tempuser = listBox1.SelectedItem as User;
-            if (flag == 2)
+            if (tempuser.Querys != null && tempuser.Querys.Split().Contains(user.id.ToString()) || tempuser.Friends != null && tempuser.Friends.Split().Contains(user.id.ToString()))
+            {
+                MessageBox.Show("Вы уже отправили запрос этому пользователю или добавили его в друзья");
+                return;
+            }
+            if (flag == 2 || user.Querys != null && user.Querys.Split().Contains(tempuser.id.ToString()))
             {
                 if (tempuser.Friends != null && tempuser.Friends != "") tempuser.Friends += " " + user.id.ToString();
                 else tempuser.Friends = user.id.ToString(); 
@@ -55,13 +60,8 @@ namespace CRM
                 AddToQuerys(user, userquerys);
                 return;
             }
-            if (tempuser.Querys != null && (tempuser.Querys.Split().Contains(user.Login) || tempuser.Friends.Split().Contains(user.Login)))
-            {
-                MessageBox.Show("Вы уже отправили запрос этому пользователю или добавили его в друзьяы");
-                return;
-            }
             if (tempuser.Querys != null && tempuser.Querys != "") tempuser.Querys += " " + user.id.ToString();
-            tempuser.Querys += user.id.ToString();
+            else tempuser.Querys += user.id.ToString();
             db.SaveChanges();
             Update();
 

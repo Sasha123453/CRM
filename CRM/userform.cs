@@ -15,6 +15,7 @@ namespace CRM
     {
         int flag = 0;
         User user;
+        User checkuser;
         ApplicationContext db;
         List<Task> tasks = new List<Task>();
         List<Task> ManageTasks = new List<Task>();
@@ -80,7 +81,7 @@ namespace CRM
 
         private void addfriends_Click(object sender, EventArgs e)
         {
-            Form form = new friends(user.id);
+            Form form = new friends(checkuser.id);
             form.ShowDialog();
             user = db.Users.Where(x => user.id == x.id).FirstOrDefault();
         }
@@ -89,6 +90,7 @@ namespace CRM
         {
             if (user.Friends == "" || user.Friends == null)
             {
+                MessageBox.Show("Сначала добавьте друзей");
                 return;
             }
             MainPage.TabPages.Remove(UserPage);
@@ -119,7 +121,6 @@ namespace CRM
             user.Login = LoginBox.Text;
             if (PassBox.Text != "") user.Password = GetHash(PassBox.Text);
             db.SaveChanges();
-            MessageBox.Show(user.Login);
             MainPage.TabPages.Remove(ChangeData);
             MainPage.TabPages.Add(UserPage);
 
