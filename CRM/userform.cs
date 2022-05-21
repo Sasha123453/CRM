@@ -15,7 +15,6 @@ namespace CRM
     {
         int flag = 0;
         User user;
-        User checkuser;
         ApplicationContext db;
         List<Task> tasks = new List<Task>();
         List<Task> ManageTasks = new List<Task>();
@@ -38,7 +37,7 @@ namespace CRM
         void Update()
         {
             listBox1.DataSource = null;
-            tasks = db.Tasks.ToList();
+            using (ApplicationContext context = new ApplicationContext()) tasks = context.Tasks.ToList();
             tasks = tasks.FindAll(x => x.Completed == 0 && x.Hidden == 0 && x.Users != null);
             tasks = tasks.FindAll(x => x.Users.Split().Contains(user.id.ToString()) || x.Users.Split().Contains("everyone"));
             listBox1.DataSource = tasks;
@@ -81,9 +80,10 @@ namespace CRM
 
         private void addfriends_Click(object sender, EventArgs e)
         {
-            Form form = new friends(checkuser.id);
+            Form form = new friends(user.id);
             form.ShowDialog();
-            user = db.Users.Where(x => user.id == x.id).FirstOrDefault();
+            using (ApplicationContext context = new ApplicationContext()) user = context.Users.Where(x => user.id == x.id).FirstOrDefault();
+            UserPage.Text = user.Login;
         }
 
         private void taskcontrol_Click(object sender, EventArgs e)
@@ -96,6 +96,7 @@ namespace CRM
             MainPage.TabPages.Remove(UserPage);
             MainPage.TabPages.Add(TaskPage);
             ManageTasks = db.Tasks.Where(x => x.Author == user.id.ToString()).ToList();
+            TaskSortBox.SelectedIndex = 0;
             UpdateTask();
         }
 
@@ -121,6 +122,7 @@ namespace CRM
             user.Login = LoginBox.Text;
             if (PassBox.Text != "") user.Password = GetHash(PassBox.Text);
             db.SaveChanges();
+            UserPage.Text = user.Login;
             MainPage.TabPages.Remove(ChangeData);
             MainPage.TabPages.Add(UserPage);
 
@@ -134,7 +136,7 @@ namespace CRM
         }
         void UpdateTask()
         {
-            ManageTasks = db.Tasks.Where(x => x.Author == user.id.ToString()).ToList();
+            using (ApplicationContext context = new ApplicationContext()) ManageTasks = context.Tasks.Where(x => x.Author == user.id.ToString()).ToList();
             if (flag == 0) TaskListBox.DataSource = ManageTasks;
             if (flag == 1) TaskListBox.DataSource = ManageTasks.FindAll(x => x.Completed == 1);
             if (flag == 2) TaskListBox.DataSource = ManageTasks.FindAll(x => x.Completed == 0);
@@ -144,7 +146,8 @@ namespace CRM
         {
             if (TaskListBox.SelectedIndex == -1) return;
             Task task = TaskListBox.SelectedItem as Task;
-            MessageBox.Show("Описание: " + task.Description + "\n Комментарий: " + task.Commentary);
+            if (task.Solution == null) MessageBox.Show("Описание: " + task.Description + "\n Комментарий: " + task.Commentary);
+            else MessageBox.Show("Описание: " + task.Description + "\n Комментарий: " + task.Commentary + "\n Решение:" + task.Solution);
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -154,32 +157,25 @@ namespace CRM
             UpdateTask();
         }
 
-        private void UpdateAll_Click(object sender, EventArgs e)
-        {
-            flag = 0;
-            UpdateTask();
-        }
-
-        private void UpdateCompleted_Click(object sender, EventArgs e)
-        {
-            flag = 1;
-            UpdateTask();
-        }
-
         private void EditButton_Click(object sender, EventArgs e)
         {
             if (TaskListBox.SelectedIndex == -1) return;
             Task task = TaskListBox.SelectedItem as Task;
             Form form = new addedit(task.id, user.Login);
             form.ShowDialog();
-            Update();
+            UpdateTask();
         }
 
         private void CheckButton_Click(object sender, EventArgs e)
         {
             if (TaskListBox.SelectedIndex == -1) return;
             Task task = TaskListBox.SelectedItem as Task;
-            task.Hidden = 1;
+            task = db.Tasks.Where(x => x.id == task.id).FirstOrDefault();
+            if (CheckButton.Text == "Убрать скрытие")
+            {
+                task.Hidden = 0;
+            }
+            else task.Hidden = 1;
             db.SaveChanges();
             UpdateTask();
         }
@@ -190,13 +186,13 @@ namespace CRM
             Task task = TaskListBox.SelectedItem as Task;
             db.Tasks.Remove(task);
             db.SaveChanges();
-            Update();
+            UpdateTask();
         }
 
         private void UpdateNotCompleted_Click(object sender, EventArgs e)
         {
             flag = 2;
-            Update();
+            UpdateTask();
         }
 
         private void TaskBackButton_Click(object sender, EventArgs e)
@@ -230,13 +226,14 @@ namespace CRM
         {
             if (TaskListBox.SelectedIndex == -1) return;
             Task task = TaskListBox.SelectedItem as Task;
-            if (CheckButton.Text == "Убрать скрытие")
-            {
-                task.Hidden = 0;
-            }
-            else task.Hidden = 1;
-            db.SaveChanges();
-            Update();
+            if (task.Hidden == 1) CheckButton.Text = "Убрать скрытие";
+            else CheckButton.Text = "Скрыть задачу";
+        }
+
+        private void TaskSortBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            flag = TaskSortBox.SelectedIndex;
+            UpdateTask();
         }
     }
 }

@@ -33,15 +33,13 @@
             this.editbutton = new System.Windows.Forms.Button();
             this.addbutton = new System.Windows.Forms.Button();
             this.deletebutton = new System.Windows.Forms.Button();
-            this.buttonshowall = new System.Windows.Forms.Button();
-            this.buttonnotcomplete = new System.Windows.Forms.Button();
-            this.buttoncomplete = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.exitbutton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.addfriends = new System.Windows.Forms.Button();
             this.MainPage = new System.Windows.Forms.TabControl();
             this.AdminPage = new System.Windows.Forms.TabPage();
+            this.TaskSortBox = new System.Windows.Forms.ComboBox();
             this.ChangeData = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -123,42 +121,6 @@
             this.deletebutton.UseVisualStyleBackColor = true;
             this.deletebutton.Click += new System.EventHandler(this.deletebutton_Click);
             // 
-            // buttonshowall
-            // 
-            this.buttonshowall.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.buttonshowall.Location = new System.Drawing.Point(632, 209);
-            this.buttonshowall.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonshowall.Name = "buttonshowall";
-            this.buttonshowall.Size = new System.Drawing.Size(123, 61);
-            this.buttonshowall.TabIndex = 5;
-            this.buttonshowall.Text = "Отобразить всё";
-            this.buttonshowall.UseVisualStyleBackColor = true;
-            this.buttonshowall.Click += new System.EventHandler(this.buttonshowall_Click);
-            // 
-            // buttonnotcomplete
-            // 
-            this.buttonnotcomplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.buttonnotcomplete.Location = new System.Drawing.Point(632, 128);
-            this.buttonnotcomplete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonnotcomplete.Name = "buttonnotcomplete";
-            this.buttonnotcomplete.Size = new System.Drawing.Size(123, 68);
-            this.buttonnotcomplete.TabIndex = 6;
-            this.buttonnotcomplete.Text = "Отобразить невыполненные";
-            this.buttonnotcomplete.UseVisualStyleBackColor = true;
-            this.buttonnotcomplete.Click += new System.EventHandler(this.buttonnotcomplete_Click);
-            // 
-            // buttoncomplete
-            // 
-            this.buttoncomplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
-            this.buttoncomplete.Location = new System.Drawing.Point(632, 48);
-            this.buttoncomplete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttoncomplete.Name = "buttoncomplete";
-            this.buttoncomplete.Size = new System.Drawing.Size(123, 67);
-            this.buttoncomplete.TabIndex = 7;
-            this.buttoncomplete.Text = "Отобразить выполненные";
-            this.buttoncomplete.UseVisualStyleBackColor = true;
-            this.buttoncomplete.Click += new System.EventHandler(this.buttoncomplete_Click);
-            // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.1F);
@@ -221,6 +183,7 @@
             // 
             // AdminPage
             // 
+            this.AdminPage.Controls.Add(this.TaskSortBox);
             this.AdminPage.Controls.Add(this.listBox1);
             this.AdminPage.Controls.Add(this.button1);
             this.AdminPage.Controls.Add(this.button2);
@@ -230,9 +193,6 @@
             this.AdminPage.Controls.Add(this.exitbutton);
             this.AdminPage.Controls.Add(this.editbutton);
             this.AdminPage.Controls.Add(this.userlistbutton);
-            this.AdminPage.Controls.Add(this.buttonshowall);
-            this.AdminPage.Controls.Add(this.buttonnotcomplete);
-            this.AdminPage.Controls.Add(this.buttoncomplete);
             this.AdminPage.Location = new System.Drawing.Point(4, 25);
             this.AdminPage.Name = "AdminPage";
             this.AdminPage.Padding = new System.Windows.Forms.Padding(3);
@@ -241,6 +201,20 @@
             this.AdminPage.Text = "tabPage1";
             this.AdminPage.UseVisualStyleBackColor = true;
             this.AdminPage.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // TaskSortBox
+            // 
+            this.TaskSortBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TaskSortBox.FormattingEnabled = true;
+            this.TaskSortBox.Items.AddRange(new object[] {
+            "Все задачи",
+            "Выполненные",
+            "Невыполненные"});
+            this.TaskSortBox.Location = new System.Drawing.Point(621, 58);
+            this.TaskSortBox.Name = "TaskSortBox";
+            this.TaskSortBox.Size = new System.Drawing.Size(134, 24);
+            this.TaskSortBox.TabIndex = 13;
+            this.TaskSortBox.SelectedIndexChanged += new System.EventHandler(this.TaskSortBox_SelectedIndexChanged);
             // 
             // ChangeData
             // 
@@ -431,9 +405,6 @@
         private System.Windows.Forms.Button editbutton;
         private System.Windows.Forms.Button addbutton;
         private System.Windows.Forms.Button deletebutton;
-        private System.Windows.Forms.Button buttonshowall;
-        private System.Windows.Forms.Button buttonnotcomplete;
-        private System.Windows.Forms.Button buttoncomplete;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button exitbutton;
         private System.Windows.Forms.Button button2;
@@ -455,5 +426,6 @@
         private System.Windows.Forms.Button UnbanButton;
         private System.Windows.Forms.Button BanButton;
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.ComboBox TaskSortBox;
     }
 }

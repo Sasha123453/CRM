@@ -26,6 +26,7 @@ namespace CRM
             MainPage.TabPages.Remove(UserPage);
             MainPage.TabPages.Remove(ChangeData);
             Update();
+            TaskSortBox.SelectedIndex = 0;
         }
 
         private void userlistbutton_Click(object sender, EventArgs e)
@@ -36,7 +37,8 @@ namespace CRM
         }
         void Update()
         {
-            tasks = db.Tasks.ToList();
+            listBox1.DataSource = null;
+            using (ApplicationContext context = new ApplicationContext()) tasks = context.Tasks.ToList();
             if (flag == 1) tasks = tasks.FindAll(x => x.Completed != 0);
             if (flag == 2) tasks = tasks.FindAll(x => x.Completed == 0);
             listBox1.DataSource= tasks;
@@ -75,6 +77,7 @@ namespace CRM
         {
             if (listBox1.SelectedIndex == -1) return;
             Task task = listBox1.SelectedItem as Task;
+            task = db.Tasks.Where(x => x.id == task.id).FirstOrDefault();
             if (deletebutton.Text == "Убрать скрытие")
             {
                 task.Hidden = 0;
@@ -92,29 +95,11 @@ namespace CRM
             else MessageBox.Show("Описание: " + task.Description +"\n Комментарий: " + task.Commentary + "\n Решение:" + task.Solution);
         }
 
-        private void buttoncomplete_Click(object sender, EventArgs e)
-        {
-            flag = 1;
-            Update();
-        }
-
-        private void buttonnotcomplete_Click(object sender, EventArgs e)
-        {
-            flag = 2;
-            Update();
-        }
-
-        private void buttonshowall_Click(object sender, EventArgs e)
-        {
-            flag = 0;
-            Update();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex == -1) return;
             Task task = listBox1.SelectedItem as Task;
-            db.Tasks.Remove(task);
+            db.Tasks.Remove(db.Tasks.Where(x => x.id == task.id).FirstOrDefault());
             db.SaveChanges();
             Update();
         }
@@ -156,6 +141,7 @@ namespace CRM
             User.Login = LoginBox.Text;
             if (PassBox.Text != "") User.Password = GetHash(PassBox.Text);
             db.SaveChanges();
+            AdminPage.Text = User.Login;
             this.Hide();
             this.Close();
         }
@@ -240,10 +226,13 @@ namespace CRM
         }
         void UpdateUsers()
         {
-            List<User> users = db.Users.ToList();
-            users.Remove(User);
-            if (UserSearchBox.Text != "") users = users.FindAll(x => x.Login.Contains(UserSearchBox.Text));
-            if (users.Count > 0) UsersBox.DataSource = users;
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                List<User> users = context.Users.ToList();
+                users.Remove(User);
+                if (UserSearchBox.Text != "") users = users.FindAll(x => x.Login.Contains(UserSearchBox.Text));
+                if (users.Count > 0) UsersBox.DataSource = users;
+            }
         }
 
         private void UserPage_Click(object sender, EventArgs e)
@@ -255,6 +244,12 @@ namespace CRM
         {
             MainPage.TabPages.Remove(UserPage);
             MainPage.TabPages.Add(AdminPage);
+        }
+
+        private void TaskSortBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            flag = TaskSortBox.SelectedIndex;
+            Update();
         }
     }
 }

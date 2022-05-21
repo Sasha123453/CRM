@@ -134,23 +134,38 @@ namespace CRM
         }
         void Update()
         {
-            UsersListBox.DataSource = null;
-            if (flag == 0)
+            using (ApplicationContext context = new ApplicationContext())
             {
-                if (user.Role == "normal")
+                UsersListBox.DataSource = null;
+                if (flag == 0)
                 {
-                    List<User> list = userlist;
-                    if (UsersBox.Text != "") list = list.FindAll(x => x.Login.Contains(UsersBox.Text));
-                    list.Remove(user);
-                    UsersListBox.DataSource = list;
-                    return;
+                    if (user.Role == "normal")
+                    {
+                        user = context.Users.Where(x => x.id == user.id).FirstOrDefault();
+                        List<User> list;
+                        if (user.Friends != null && user.Friends != "")
+                        {
+                            list = new List<User>();
+                            string[] l = user.Friends.Split();
+                            foreach (string s in l) list.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+                        }
+                        else
+                        {
+                            UsersListBox.DataSource = null;
+                            return;
+                        }
+                        if (UsersBox.Text != "") list = list.FindAll(x => x.Login.Contains(UsersBox.Text));
+                        list.Remove(user);
+                        UsersListBox.DataSource = list;
+                        return;
+                    }
+                    List<User> users = context.Users.ToList();
+                    users.Remove(user);
+                    if (UsersBox.Text != "") users = users.FindAll(x => x.Login.Contains(UsersBox.Text)); UsersListBox.DataSource = users;
+                    UsersListBox.DataSource = users;
                 }
-                List<User> users = db.Users.ToList();
-                users.Remove(user);
-                if (UsersBox.Text != "") users = users.FindAll(x => x.Login.Contains(UsersBox.Text));UsersListBox.DataSource = users;
-                UsersListBox.DataSource = users;
+                else UsersListBox.DataSource = taskusers;
             }
-            else UsersListBox.DataSource = taskusers;
         }
 
         private void UsersBox_TextChanged(object sender, EventArgs e)
@@ -164,22 +179,6 @@ namespace CRM
             User tempuser = UsersListBox.SelectedItem as User;
             if (taskusers.Contains(tempuser)) return;
             taskusers.Add(tempuser);
-        }
-
-        private void ShowUser_Click(object sender, EventArgs e)
-        {
-            flag = 1;
-            AddButton.Enabled = false;
-            DeleteButton.Enabled = true;
-            Update();
-        }
-
-        private void ShowAll_Click(object sender, EventArgs e)
-        {
-            flag = 0;
-            AddButton.Enabled = true;
-            DeleteButton.Enabled = false;
-            Update();
         }
 
         private void CleanAll_Click(object sender, EventArgs e)
@@ -204,6 +203,24 @@ namespace CRM
         private void CleanAllUsersButton_Click(object sender, EventArgs e)
         {
             maintaskusers = "";
+        }
+
+        private void TaskSortBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TaskSortBox.SelectedIndex == 0)
+            {
+                flag = 0;
+                AddButton.Enabled = true;
+                DeleteButton.Enabled = false;
+                Update();
+            }
+            else
+            {
+                flag = 1;
+                AddButton.Enabled = false;
+                DeleteButton.Enabled = true;
+                Update();
+            }
         }
     }
 }

@@ -47,14 +47,12 @@
             this.ChangeDataButton = new System.Windows.Forms.Button();
             this.TaskPage = new System.Windows.Forms.TabPage();
             this.TaskBackButton = new System.Windows.Forms.Button();
-            this.UpdateNotCompleted = new System.Windows.Forms.Button();
-            this.UpdateCompleted = new System.Windows.Forms.Button();
-            this.UpdateAll = new System.Windows.Forms.Button();
             this.DelButton = new System.Windows.Forms.Button();
             this.CheckButton = new System.Windows.Forms.Button();
             this.EditButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.TaskListBox = new System.Windows.Forms.ListBox();
+            this.TaskSortBox = new System.Windows.Forms.ComboBox();
             this.MainPage.SuspendLayout();
             this.UserPage.SuspendLayout();
             this.ChangeData.SuspendLayout();
@@ -261,10 +259,8 @@
             // 
             // TaskPage
             // 
+            this.TaskPage.Controls.Add(this.TaskSortBox);
             this.TaskPage.Controls.Add(this.TaskBackButton);
-            this.TaskPage.Controls.Add(this.UpdateNotCompleted);
-            this.TaskPage.Controls.Add(this.UpdateCompleted);
-            this.TaskPage.Controls.Add(this.UpdateAll);
             this.TaskPage.Controls.Add(this.DelButton);
             this.TaskPage.Controls.Add(this.CheckButton);
             this.TaskPage.Controls.Add(this.EditButton);
@@ -288,36 +284,6 @@
             this.TaskBackButton.Text = "Назад";
             this.TaskBackButton.UseVisualStyleBackColor = true;
             this.TaskBackButton.Click += new System.EventHandler(this.TaskBackButton_Click);
-            // 
-            // UpdateNotCompleted
-            // 
-            this.UpdateNotCompleted.Location = new System.Drawing.Point(571, 293);
-            this.UpdateNotCompleted.Name = "UpdateNotCompleted";
-            this.UpdateNotCompleted.Size = new System.Drawing.Size(137, 99);
-            this.UpdateNotCompleted.TabIndex = 15;
-            this.UpdateNotCompleted.Text = "Отобразить невыполненные";
-            this.UpdateNotCompleted.UseVisualStyleBackColor = true;
-            this.UpdateNotCompleted.Click += new System.EventHandler(this.UpdateNotCompleted_Click);
-            // 
-            // UpdateCompleted
-            // 
-            this.UpdateCompleted.Location = new System.Drawing.Point(571, 187);
-            this.UpdateCompleted.Name = "UpdateCompleted";
-            this.UpdateCompleted.Size = new System.Drawing.Size(137, 97);
-            this.UpdateCompleted.TabIndex = 14;
-            this.UpdateCompleted.Text = "Отобразить выполненные";
-            this.UpdateCompleted.UseVisualStyleBackColor = true;
-            this.UpdateCompleted.Click += new System.EventHandler(this.UpdateCompleted_Click);
-            // 
-            // UpdateAll
-            // 
-            this.UpdateAll.Location = new System.Drawing.Point(571, 84);
-            this.UpdateAll.Name = "UpdateAll";
-            this.UpdateAll.Size = new System.Drawing.Size(137, 94);
-            this.UpdateAll.TabIndex = 13;
-            this.UpdateAll.Text = "Отобразить всё";
-            this.UpdateAll.UseVisualStyleBackColor = true;
-            this.UpdateAll.Click += new System.EventHandler(this.UpdateAll_Click);
             // 
             // DelButton
             // 
@@ -370,6 +336,20 @@
             this.TaskListBox.SelectedIndexChanged += new System.EventHandler(this.TaskListBox_SelectedIndexChanged);
             this.TaskListBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TaskListBox_MouseDoubleClick);
             // 
+            // TaskSortBox
+            // 
+            this.TaskSortBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TaskSortBox.FormattingEnabled = true;
+            this.TaskSortBox.Items.AddRange(new object[] {
+            "Все задачи",
+            "Выполненные",
+            "Невыполненные"});
+            this.TaskSortBox.Location = new System.Drawing.Point(582, 84);
+            this.TaskSortBox.Name = "TaskSortBox";
+            this.TaskSortBox.Size = new System.Drawing.Size(137, 24);
+            this.TaskSortBox.TabIndex = 18;
+            this.TaskSortBox.SelectedIndexChanged += new System.EventHandler(this.TaskSortBox_SelectedIndexChanged);
+            // 
             // userform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -409,14 +389,12 @@
         private System.Windows.Forms.TextBox LoginBox;
         private System.Windows.Forms.Button ChangeDataButton;
         private System.Windows.Forms.TabPage TaskPage;
-        private System.Windows.Forms.Button UpdateNotCompleted;
-        private System.Windows.Forms.Button UpdateCompleted;
-        private System.Windows.Forms.Button UpdateAll;
         private System.Windows.Forms.Button DelButton;
         private System.Windows.Forms.Button CheckButton;
         private System.Windows.Forms.Button EditButton;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.ListBox TaskListBox;
         private System.Windows.Forms.Button TaskBackButton;
+        private System.Windows.Forms.ComboBox TaskSortBox;
     }
 }

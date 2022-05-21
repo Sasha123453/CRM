@@ -41,11 +41,11 @@
             this.TaskAddPage = new System.Windows.Forms.TabPage();
             this.CleanAllUsersButton = new System.Windows.Forms.Button();
             this.UsersPage = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.TaskSortBox = new System.Windows.Forms.ComboBox();
             this.BackButton = new System.Windows.Forms.Button();
             this.CleanAll = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.ShowAll = new System.Windows.Forms.Button();
-            this.ShowUser = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.UsersBox = new System.Windows.Forms.TextBox();
@@ -189,11 +189,11 @@
             // 
             // UsersPage
             // 
+            this.UsersPage.Controls.Add(this.label4);
+            this.UsersPage.Controls.Add(this.TaskSortBox);
             this.UsersPage.Controls.Add(this.BackButton);
             this.UsersPage.Controls.Add(this.CleanAll);
             this.UsersPage.Controls.Add(this.SaveButton);
-            this.UsersPage.Controls.Add(this.ShowAll);
-            this.UsersPage.Controls.Add(this.ShowUser);
             this.UsersPage.Controls.Add(this.DeleteButton);
             this.UsersPage.Controls.Add(this.AddButton);
             this.UsersPage.Controls.Add(this.UsersBox);
@@ -207,9 +207,32 @@
             this.UsersPage.UseVisualStyleBackColor = true;
             this.UsersPage.Click += new System.EventHandler(this.UsersPage_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
+            this.label4.Location = new System.Drawing.Point(595, 170);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(134, 22);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Пользователи:";
+            // 
+            // TaskSortBox
+            // 
+            this.TaskSortBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TaskSortBox.FormattingEnabled = true;
+            this.TaskSortBox.Items.AddRange(new object[] {
+            "Все",
+            "С задачи"});
+            this.TaskSortBox.Location = new System.Drawing.Point(599, 231);
+            this.TaskSortBox.Name = "TaskSortBox";
+            this.TaskSortBox.Size = new System.Drawing.Size(134, 24);
+            this.TaskSortBox.TabIndex = 14;
+            this.TaskSortBox.SelectedIndexChanged += new System.EventHandler(this.TaskSortBox_SelectedIndexChanged);
+            // 
             // BackButton
             // 
-            this.BackButton.Location = new System.Drawing.Point(605, 113);
+            this.BackButton.Location = new System.Drawing.Point(605, 74);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(114, 62);
             this.BackButton.TabIndex = 11;
@@ -219,9 +242,9 @@
             // 
             // CleanAll
             // 
-            this.CleanAll.Location = new System.Drawing.Point(605, 211);
+            this.CleanAll.Location = new System.Drawing.Point(465, 382);
             this.CleanAll.Name = "CleanAll";
-            this.CleanAll.Size = new System.Drawing.Size(114, 60);
+            this.CleanAll.Size = new System.Drawing.Size(114, 55);
             this.CleanAll.TabIndex = 10;
             this.CleanAll.Text = "Очистить";
             this.CleanAll.UseVisualStyleBackColor = true;
@@ -229,33 +252,13 @@
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(605, 310);
+            this.SaveButton.Location = new System.Drawing.Point(316, 382);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(114, 56);
             this.SaveButton.TabIndex = 9;
             this.SaveButton.Text = "Сохранить";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
-            // ShowAll
-            // 
-            this.ShowAll.Location = new System.Drawing.Point(454, 383);
-            this.ShowAll.Name = "ShowAll";
-            this.ShowAll.Size = new System.Drawing.Size(125, 54);
-            this.ShowAll.TabIndex = 8;
-            this.ShowAll.Text = "Показать всех";
-            this.ShowAll.UseVisualStyleBackColor = true;
-            this.ShowAll.Click += new System.EventHandler(this.ShowAll_Click);
-            // 
-            // ShowUser
-            // 
-            this.ShowUser.Location = new System.Drawing.Point(309, 383);
-            this.ShowUser.Name = "ShowUser";
-            this.ShowUser.Size = new System.Drawing.Size(119, 54);
-            this.ShowUser.TabIndex = 7;
-            this.ShowUser.Text = "Пользователи с задачи";
-            this.ShowUser.UseVisualStyleBackColor = true;
-            this.ShowUser.Click += new System.EventHandler(this.ShowUser_Click);
             // 
             // DeleteButton
             // 
@@ -332,11 +335,11 @@
         private System.Windows.Forms.TextBox UsersBox;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Button DeleteButton;
-        private System.Windows.Forms.Button ShowUser;
-        private System.Windows.Forms.Button ShowAll;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CleanAll;
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Button CleanAllUsersButton;
+        private System.Windows.Forms.ComboBox TaskSortBox;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -43,27 +43,30 @@ namespace CRM
 
         private void addbutton_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex == -1) return;
-            User tempuser = listBox1.SelectedItem as User;
-            if (tempuser.Querys != null && tempuser.Querys.Split().Contains(user.id.ToString()) || tempuser.Friends != null && tempuser.Friends.Split().Contains(user.id.ToString()))
+            using (ApplicationContext context = new ApplicationContext())
             {
-                MessageBox.Show("Вы уже отправили запрос этому пользователю или добавили его в друзья");
-                return;
+                if (listBox1.SelectedIndex == -1) return;
+                User tempuser = listBox1.SelectedItem as User;
+                if (tempuser.Querys != null && tempuser.Querys.Split().Contains(user.id.ToString()) || tempuser.Friends != null && tempuser.Friends.Split().Contains(user.id.ToString()))
+                {
+                    MessageBox.Show("Вы уже отправили запрос этому пользователю или добавили его в друзья");
+                    return;
+                }
+                if (flag == 2 || user.Querys != null && user.Querys.Split().Contains(tempuser.id.ToString()))
+                {
+                    if (tempuser.Friends != null && tempuser.Friends != "") tempuser.Friends += " " + user.id.ToString();
+                    else tempuser.Friends = user.id.ToString();
+                    userquerys.Remove(tempuser);
+                    userfriends.Add(tempuser);
+                    AddToFriends(user, userfriends);
+                    AddToQuerys(user, userquerys);
+                    return;
+                }
+                if (tempuser.Querys != null && tempuser.Querys != "") tempuser.Querys += " " + user.id.ToString();
+                else tempuser.Querys += user.id.ToString();
+                db.SaveChanges();
+                Update();
             }
-            if (flag == 2 || user.Querys != null && user.Querys.Split().Contains(tempuser.id.ToString()))
-            {
-                if (tempuser.Friends != null && tempuser.Friends != "") tempuser.Friends += " " + user.id.ToString();
-                else tempuser.Friends = user.id.ToString(); 
-                userquerys.Remove(tempuser);
-                userfriends.Add(tempuser);
-                AddToFriends(user, userfriends);
-                AddToQuerys(user, userquerys);
-                return;
-            }
-            if (tempuser.Querys != null && tempuser.Querys != "") tempuser.Querys += " " + user.id.ToString();
-            else tempuser.Querys += user.id.ToString();
-            db.SaveChanges();
-            Update();
 
         }
 
@@ -102,17 +105,39 @@ namespace CRM
         }
         void Update()
         {
-            listBox1.DataSource = null;
-            if (flag == 0)
+            using (ApplicationContext context = new ApplicationContext())
             {
-                List<User> users = db.Users.ToList();
-                users.Remove(user);
-                if (textBox1.Text != "") users = users.FindAll(x => x.Login.ToString().Contains(textBox1.Text));
-                listBox1.DataSource = users;
-            }
-            if (flag == 1) listBox1.DataSource = userfriends;
+                //user = db.Users.Where(x => x.id == user.id).FirstOrDefault();
+                listBox1.DataSource = null;
+                if (flag == 0)
+                {
+                    List<User> users = db.Users.ToList();
+                    users.Remove(db.Users.Where(x => x.id == user.id).FirstOrDefault());
+                    if (textBox1.Text != "") users = users.FindAll(x => x.Login.ToString().Contains(textBox1.Text));
+                    listBox1.DataSource = users;
+                }
+                if (flag == 1) 
+                {
+                    if (user.Friends != null && user.Friends != "" && false)
+                    {
+                        userfriends.Clear();
+                        string[] l = user.Friends.Split();
+                        foreach (string s in l) userfriends.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+                    }
+                    listBox1.DataSource = userfriends;
+                }
 
-            if (flag == 2) listBox1.DataSource = userquerys;
+                if (flag == 2)
+                {
+                    if (user.Querys != null && user.Querys != "" && false)
+                    {
+                        userquerys.Clear();
+                        string[] l = user.Querys.Split();
+                        foreach (string s in l) userquerys.Add(context.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+                    }
+                    listBox1.DataSource = userquerys;
+                }
+            }
         }
 
         private void showfriends_Click(object sender, EventArgs e)
@@ -124,27 +149,33 @@ namespace CRM
         }
         void AddToQuerys(User us, List<User> add)
         {
-            string l = null;
-            for (int i = 0; i < add.Count; i++)
+            using (ApplicationContext context = new ApplicationContext())
             {
-                if (i == add.Count - 1) l += add[i].id.ToString();
-                else l += add[i].id.ToString() + " ";
+                string l = null;
+                for (int i = 0; i < add.Count; i++)
+                {
+                    if (i == add.Count - 1) l += add[i].id.ToString();
+                    else l += add[i].id.ToString() + " ";
+                }
+                us.Querys = l;
+                db.SaveChanges();
+                Update();
             }
-            us.Querys = l;
-            db.SaveChanges();
-            Update();
         }
         void AddToFriends(User us, List<User> add)
         {
-            string k = null;
-            for (int i = 0; i < add.Count; i++)
+            using (ApplicationContext context = new ApplicationContext())
             {
-                if (i == add.Count - 1) k += add[i].id.ToString();
-                else k += userfriends[i].id.ToString() + " ";
+                string k = null;
+                for (int i = 0; i < add.Count; i++)
+                {
+                    if (i == add.Count - 1) k += add[i].id.ToString();
+                    else k += userfriends[i].id.ToString() + " ";
+                }
+                us.Friends = k;
+                db.SaveChanges();
+                Update();
             }
-            us.Friends = k;
-            db.SaveChanges();
-            Update();
         }
 
         private void showquerys_Click(object sender, EventArgs e)
