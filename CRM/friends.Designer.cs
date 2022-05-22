@@ -68,7 +68,7 @@
             // 
             // showall
             // 
-            this.showall.Location = new System.Drawing.Point(305, 352);
+            this.showall.Location = new System.Drawing.Point(304, 352);
             this.showall.Name = "showall";
             this.showall.Size = new System.Drawing.Size(110, 44);
             this.showall.TabIndex = 3;

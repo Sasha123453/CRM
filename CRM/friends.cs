@@ -47,6 +47,7 @@ namespace CRM
             {
                 if (listBox1.SelectedIndex == -1) return;
                 User tempuser = listBox1.SelectedItem as User;
+                tempuser = db.Users.Where(x => x.id == tempuser.id).FirstOrDefault();
                 if (tempuser.Querys != null && tempuser.Querys.Split().Contains(user.id.ToString()) || tempuser.Friends != null && tempuser.Friends.Split().Contains(user.id.ToString()))
                 {
                     MessageBox.Show("Вы уже отправили запрос этому пользователю или добавили его в друзья");
@@ -64,7 +65,7 @@ namespace CRM
                 }
                 if (tempuser.Querys != null && tempuser.Querys != "") tempuser.Querys += " " + user.id.ToString();
                 else tempuser.Querys += user.id.ToString();
-                db.SaveChanges();
+                context.SaveChanges();
                 Update();
             }
 
@@ -74,6 +75,7 @@ namespace CRM
         {
             if (listBox1.SelectedIndex == -1) return;
             User l = listBox1.SelectedItem as User;
+            l = db.Users.Where(x => x.id == l.id).FirstOrDefault();
             if (flag == 2)
             {
                 userquerys.Remove(l);
@@ -107,12 +109,12 @@ namespace CRM
         {
             using (ApplicationContext context = new ApplicationContext())
             {
-                //user = db.Users.Where(x => x.id == user.id).FirstOrDefault();
+                user = context.Users.Where(x => x.id == user.id).FirstOrDefault();
                 listBox1.DataSource = null;
                 if (flag == 0)
                 {
-                    List<User> users = db.Users.ToList();
-                    users.Remove(db.Users.Where(x => x.id == user.id).FirstOrDefault());
+                    List<User> users = context.Users.ToList();
+                    users.Remove(user);
                     if (textBox1.Text != "") users = users.FindAll(x => x.Login.ToString().Contains(textBox1.Text));
                     listBox1.DataSource = users;
                 }
@@ -123,8 +125,9 @@ namespace CRM
                         userfriends.Clear();
                         string[] l = user.Friends.Split();
                         foreach (string s in l) userfriends.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+                        listBox1.DataSource = userfriends;
                     }
-                    listBox1.DataSource = userfriends;
+                    
                 }
 
                 if (flag == 2)
@@ -134,8 +137,8 @@ namespace CRM
                         userquerys.Clear();
                         string[] l = user.Querys.Split();
                         foreach (string s in l) userquerys.Add(context.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
+                        listBox1.DataSource = userquerys;
                     }
-                    listBox1.DataSource = userquerys;
                 }
             }
         }

@@ -91,7 +91,7 @@ namespace CRM
                 string[] l = ss.Users.Split();
                 foreach (string s in l) taskusers.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
             }
-            if (user.Role == "normal")
+            if (user.Friends != null && user.Role == "normal")
             {
                 string[] l = user.Friends.Split();
                 foreach (string s in l) userlist.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());

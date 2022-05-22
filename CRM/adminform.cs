@@ -168,6 +168,7 @@ namespace CRM
         {
             if (UsersBox.SelectedIndex == -1) return;
             User user = UsersBox.SelectedItem as User;
+            user = db.Users.Where(x => x.id == user.id).FirstOrDefault();
             if (user.Role == "admin" || user.Role == "lowadmin")
             {
                 MessageBox.Show("Этот пользователья уже является администратором");
@@ -182,6 +183,7 @@ namespace CRM
         {
             if (UsersBox.SelectedIndex == -1) return;
             User user = UsersBox.SelectedItem as User;
+            user = db.Users.Where(x => x.id == user.id).FirstOrDefault();
             if (User.Role == "lowadmin" && user.Role == "admin")
             {
                 MessageBox.Show("Недостаточно прав");
@@ -196,6 +198,7 @@ namespace CRM
         {
             if (UsersBox.SelectedIndex == -1) return;
             User user = UsersBox.SelectedItem as User;
+            user = db.Users.Where(x => x.id == user.id).FirstOrDefault();
             user.Banned = 0;
             db.SaveChanges();
             UpdateUsers();
@@ -205,6 +208,7 @@ namespace CRM
         {
             if (UsersBox.SelectedIndex == -1) return;
             User user = UsersBox.SelectedItem as User;
+            user = db.Users.Where(x => x.id == user.id).FirstOrDefault();
             if (user.Banned == 1)
             {
                 MessageBox.Show("Этот пользователь уже забанен");
