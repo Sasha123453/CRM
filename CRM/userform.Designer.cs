@@ -46,13 +46,13 @@
             this.LoginBox = new System.Windows.Forms.TextBox();
             this.ChangeDataButton = new System.Windows.Forms.Button();
             this.TaskPage = new System.Windows.Forms.TabPage();
+            this.TaskSortBox = new System.Windows.Forms.ComboBox();
             this.TaskBackButton = new System.Windows.Forms.Button();
             this.DelButton = new System.Windows.Forms.Button();
             this.CheckButton = new System.Windows.Forms.Button();
             this.EditButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.TaskListBox = new System.Windows.Forms.ListBox();
-            this.TaskSortBox = new System.Windows.Forms.ComboBox();
             this.MainPage.SuspendLayout();
             this.UserPage.SuspendLayout();
             this.ChangeData.SuspendLayout();
@@ -275,6 +275,20 @@
             this.TaskPage.UseVisualStyleBackColor = true;
             this.TaskPage.Click += new System.EventHandler(this.TaskPage_Click);
             // 
+            // TaskSortBox
+            // 
+            this.TaskSortBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TaskSortBox.FormattingEnabled = true;
+            this.TaskSortBox.Items.AddRange(new object[] {
+            "Все задачи",
+            "Выполненные",
+            "Невыполненные"});
+            this.TaskSortBox.Location = new System.Drawing.Point(582, 84);
+            this.TaskSortBox.Name = "TaskSortBox";
+            this.TaskSortBox.Size = new System.Drawing.Size(137, 24);
+            this.TaskSortBox.TabIndex = 18;
+            this.TaskSortBox.SelectedIndexChanged += new System.EventHandler(this.TaskSortBox_SelectedIndexChanged);
+            // 
             // TaskBackButton
             // 
             this.TaskBackButton.Location = new System.Drawing.Point(8, 26);
@@ -321,7 +335,7 @@
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(106, 65);
             this.AddButton.TabIndex = 9;
-            this.AddButton.Text = "Добавить задача";
+            this.AddButton.Text = "Добавить задачу";
             this.AddButton.UseVisualStyleBackColor = true;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
@@ -335,20 +349,6 @@
             this.TaskListBox.TabIndex = 8;
             this.TaskListBox.SelectedIndexChanged += new System.EventHandler(this.TaskListBox_SelectedIndexChanged);
             this.TaskListBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TaskListBox_MouseDoubleClick);
-            // 
-            // TaskSortBox
-            // 
-            this.TaskSortBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.TaskSortBox.FormattingEnabled = true;
-            this.TaskSortBox.Items.AddRange(new object[] {
-            "Все задачи",
-            "Выполненные",
-            "Невыполненные"});
-            this.TaskSortBox.Location = new System.Drawing.Point(582, 84);
-            this.TaskSortBox.Name = "TaskSortBox";
-            this.TaskSortBox.Size = new System.Drawing.Size(137, 24);
-            this.TaskSortBox.TabIndex = 18;
-            this.TaskSortBox.SelectedIndexChanged += new System.EventHandler(this.TaskSortBox_SelectedIndexChanged);
             // 
             // userform
             // 

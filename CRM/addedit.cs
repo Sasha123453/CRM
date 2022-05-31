@@ -13,12 +13,11 @@ namespace CRM
     public partial class addedit : Form
     {
         int flag = 0;
-        List<User> userlist =  new List<User>(); 
         User user;
         ApplicationContext db;
         Task ss;
         string maintaskusers = "";
-        List<User> taskusers = new List<User>();
+        List<TaskUser> taskusers = new List<TaskUser>();
         string login;
         public addedit(int id, string mainlogin)
         {
@@ -54,12 +53,17 @@ namespace CRM
             {
                 Task add = new Task(nametextbox.Text, descbox.Text, 0, maintaskusers, null, user.id.ToString(), null, 0, completebox.Text);
                 db.Tasks.Add(add);
+                db.SaveChanges();
+                foreach (TaskUser x in taskusers)
+                {
+                    x.TaskId = add.id;
+                    db.TaskUsers.Add(x);
+                }
             }
             else
             {
                 ss.Taskname = nametextbox.Text;
                 ss.Description = descbox.Text;
-                ss.Users = maintaskusers;
                 ss.Commentary = completebox.Text;
             }
             db.SaveChanges();
@@ -79,23 +83,20 @@ namespace CRM
 
         private void addusers_Click(object sender, EventArgs e)
         {
-            if (maintaskusers.Split().Contains("everyone"))
+            TaskSortBox.SelectedIndex = 0;
+            if (ss != null)
             {
-                MessageBox.Show("");
-                return;
+                List<TaskUser> check = db.TaskUsers.Where(x => x.TaskId == ss.id).ToList();
+                check = check.FindAll(x => x.UserId == -1);
+                if (check != null)
+                {
+                    return;
+                }
             }
+            flag = 0;
             TaskTab.TabPages.Add(UsersPage);
             TaskTab.TabPages.Remove(TaskAddPage);
-            if (ss != null && ss.Users != null && ss.Users != "")
-            {
-                string[] l = ss.Users.Split();
-                foreach (string s in l) taskusers.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
-            }
-            if (user.Friends != null && user.Role == "normal")
-            {
-                string[] l = user.Friends.Split();
-                foreach (string s in l) userlist.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
-            }
+            if (ss != null) taskusers = db.TaskUsers.Where(x => x.TaskId == ss.id).ToList();
             Update();
             DeleteButton.Enabled = false;
         }
@@ -113,22 +114,32 @@ namespace CRM
 
         private void allusersbutton_Click(object sender, EventArgs e)
         {
-            maintaskusers = "everyone";
+            List<TaskUser> check = db.TaskUsers.Where(x => x.TaskId == -1).ToList();
+            check = check.FindAll(x => x.UserId == -1);
+            if (check != null)
+            {
+                return;
+            }
+            TaskUser add = new TaskUser(-1, -1);
+            if (ss != null)
+            {
+                add.TaskId = ss.id;
+                db.TaskUsers.Add(add);
+            }
+            taskusers.Add(add);
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            GetUsers(taskusers);
             TaskTab.TabPages.Remove(UsersPage);
             TaskTab.TabPages.Add(TaskAddPage);
-            taskusers.Clear();
-            userlist.Clear();
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             if (UsersListBox.SelectedIndex == -1) return;
-            User l = UsersListBox.SelectedItem as User;
+            TaskUser l = UsersListBox.SelectedItem as TaskUser;
+            if (ss != null) db.TaskUsers.Remove(l);
             taskusers.Remove(l);
             Update();
         }
@@ -141,31 +152,30 @@ namespace CRM
                 {
                     if (user.Role == "normal")
                     {
-                        user = context.Users.Where(x => x.id == user.id).FirstOrDefault();
-                        List<User> list;
-                        if (user.Friends != null && user.Friends != "")
-                        {
-                            list = new List<User>();
-                            string[] l = user.Friends.Split();
-                            foreach (string s in l) list.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
-                        }
-                        else
-                        {
-                            UsersListBox.DataSource = null;
-                            return;
-                        }
-                        if (UsersBox.Text != "") list = list.FindAll(x => x.Login.Contains(UsersBox.Text));
-                        list.Remove(user);
-                        UsersListBox.DataSource = list;
-                        return;
+                        List<UserFriend> userFriends = context.UserFriends.Where(x => x.FirstUserId == user.id).ToList();
+                        List<User> friends = FindFriends(userFriends);
+                        UsersListBox.DataSource = friends;
                     }
-                    List<User> users = context.Users.ToList();
-                    users.Remove(user);
-                    if (UsersBox.Text != "") users = users.FindAll(x => x.Login.Contains(UsersBox.Text)); UsersListBox.DataSource = users;
-                    UsersListBox.DataSource = users;
+                    else
+                    {
+                        List<User> allUsers = context.Users.ToList();
+                        if (UsersBox.Text != "") allUsers = allUsers.FindAll(x => x.Login.Contains(UsersBox.Text));
+                        allUsers.Remove(user);
+                        UsersListBox.DataSource = allUsers;
+                    }
                 }
                 else UsersListBox.DataSource = taskusers;
             }
+        }
+        List<User> FindFriends(List<UserFriend> userFriends)
+        {
+            List<User> users = new List<User>();
+            foreach (UserFriend friend in userFriends)
+            {
+                User f = db.Users.Where(x => x.id == friend.SecondUserId).FirstOrDefault();
+                users.Add(f);
+            }
+            return users;
         }
 
         private void UsersBox_TextChanged(object sender, EventArgs e)
@@ -177,8 +187,10 @@ namespace CRM
         {
             if (UsersListBox.SelectedIndex == -1) return;
             User tempuser = UsersListBox.SelectedItem as User;
-            if (taskusers.Contains(tempuser)) return;
-            taskusers.Add(tempuser);
+            if (taskusers.Where(x => x.UserId == tempuser.id).FirstOrDefault() != null) return;
+            TaskUser task = new TaskUser(-1, tempuser.id);
+            taskusers.Add(task);
+            if (ss != null) db.TaskUsers.Add(task);
         }
 
         private void CleanAll_Click(object sender, EventArgs e)
@@ -192,7 +204,6 @@ namespace CRM
             TaskTab.TabPages.Remove(UsersPage);
             TaskTab.TabPages.Add(TaskAddPage);
             taskusers.Clear();
-            userlist.Clear();
         }
 
         private void UsersPage_Click(object sender, EventArgs e)

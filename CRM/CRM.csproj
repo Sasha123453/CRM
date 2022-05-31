@@ -78,6 +78,9 @@
       <DependentUpon>adminform.cs</DependentUpon>
     </Compile>
     <Compile Include="ApplicationContext.cs" />
+    <Compile Include="UserQuery.cs" />
+    <Compile Include="UserFriend.cs" />
+    <Compile Include="TaskUser.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

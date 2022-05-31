@@ -16,7 +16,7 @@ namespace CRM
         int flag = 0;
         User user;
         ApplicationContext db;
-        List<Task> tasks = new List<Task>();
+        List<TaskUser> tasks = new List<TaskUser>();
         List<Task> ManageTasks = new List<Task>();
         public userform(int id)
         {
@@ -37,10 +37,17 @@ namespace CRM
         void Update()
         {
             listBox1.DataSource = null;
-            using (ApplicationContext context = new ApplicationContext()) tasks = context.Tasks.ToList();
-            tasks = tasks.FindAll(x => x.Completed == 0 && x.Hidden == 0 && x.Users != null);
-            tasks = tasks.FindAll(x => x.Users.Split().Contains(user.id.ToString()) || x.Users.Split().Contains("everyone"));
-            listBox1.DataSource = tasks;
+            using (ApplicationContext context = new ApplicationContext()) tasks = context.TaskUsers.ToList();
+            tasks = tasks.FindAll(x => x.UserId == user.id || x.UserId == -1);
+            List<Task> y = new List<Task>();
+            foreach (TaskUser task in tasks)
+            {
+                MessageBox.Show(task.TaskId.ToString());
+                Task task2 = db.Tasks.Where(x => x.id == task.TaskId).FirstOrDefault();
+                y.Add(task2);
+            }
+            y = y.FindAll(x => x.Hidden == 0 && x.Completed == 0);
+            listBox1.DataSource = y;
         }
 
         private void updatebutton_Click(object sender, EventArgs e)
@@ -88,11 +95,8 @@ namespace CRM
 
         private void taskcontrol_Click(object sender, EventArgs e)
         {
-            if (user.Friends == "" || user.Friends == null)
-            {
-                MessageBox.Show("Сначала добавьте друзей");
-                return;
-            }
+            UserFriend checkFriend = db.UserFriends.Where(x => x.FirstUserId == user.id).FirstOrDefault();
+            if (checkFriend == null) return;
             MainPage.TabPages.Remove(UserPage);
             MainPage.TabPages.Add(TaskPage);
             ManageTasks = db.Tasks.Where(x => x.Author == user.id.ToString()).ToList();

@@ -23,16 +23,6 @@ namespace CRM
             db = new ApplicationContext();
             user = db.Users.Where(b => b.id == id).FirstOrDefault();
             deletefriend.Enabled = false;
-            if (user.Friends != null && user.Friends != "")
-            {
-                string[] l = user.Friends.Split();
-                foreach (string s in l) userfriends.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
-            }
-            if (user.Querys != null && user.Querys != "")
-            {
-                string[] l = user.Querys.Split();
-                foreach (string s in l) userquerys.Add(db.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
-            }
             Update();
         }
 
@@ -43,59 +33,51 @@ namespace CRM
 
         private void addbutton_Click(object sender, EventArgs e)
         {
-            using (ApplicationContext context = new ApplicationContext())
+            if (listBox1.SelectedIndex == -1) return;
+            if (flag == 0)
             {
-                if (listBox1.SelectedIndex == -1) return;
-                User tempuser = listBox1.SelectedItem as User;
-                tempuser = db.Users.Where(x => x.id == tempuser.id).FirstOrDefault();
-                if (tempuser.Querys != null && tempuser.Querys.Split().Contains(user.id.ToString()) || tempuser.Friends != null && tempuser.Friends.Split().Contains(user.id.ToString()))
-                {
-                    MessageBox.Show("Вы уже отправили запрос этому пользователю или добавили его в друзья");
-                    return;
-                }
-                if (flag == 2 || user.Querys != null && user.Querys.Split().Contains(tempuser.id.ToString()))
-                {
-                    if (tempuser.Friends != null && tempuser.Friends != "") tempuser.Friends += " " + user.id.ToString();
-                    else tempuser.Friends = user.id.ToString();
-                    userquerys.Remove(tempuser);
-                    userfriends.Add(tempuser);
-                    AddToFriends(user, userfriends);
-                    AddToQuerys(user, userquerys);
-                    return;
-                }
-                if (tempuser.Querys != null && tempuser.Querys != "") tempuser.Querys += " " + user.id.ToString();
-                else tempuser.Querys += user.id.ToString();
-                context.SaveChanges();
-                Update();
+                UserQuery check = db.UserQuerys.Where(x => x.TargetId == user.id || x.SenderId == user.id).FirstOrDefault();
+                User adduser = listBox1.SelectedItem as User;
+                UserFriend check1 = db.UserFriends.Where(x => x.FirstUserId == user.id && x.SecondUserId == adduser.id).FirstOrDefault();
+                if (check != null || check1 != null) return;
+                UserQuery addquery = new UserQuery(user.id, adduser.id);
+                db.UserQuerys.Add(addquery);                
             }
-
+            if (flag == 2)
+            {
+                UserQuery addfriend = listBox1.SelectedItem as UserQuery;
+                UserFriend firstrecord = new UserFriend(addfriend.TargetId, addfriend.SenderId);
+                UserFriend secondrecord = new UserFriend(addfriend.SenderId, addfriend.TargetId);
+                db.UserFriends.Add(firstrecord);
+                db.UserFriends.Add(secondrecord);
+                db.UserQuerys.Remove(db.UserQuerys.Where(x => x.id == addfriend.id).FirstOrDefault());
+            }
+            db.SaveChanges();
+            Update();
         }
 
         private void deletefriend_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex == -1) return;
-            User l = listBox1.SelectedItem as User;
-            l = db.Users.Where(x => x.id == l.id).FirstOrDefault();
-            if (flag == 2)
+            using (ApplicationContext context = new ApplicationContext())
             {
-                userquerys.Remove(l);
-                AddToQuerys(user, userquerys);
-                return;
+                if (flag == 1)
+                {
+                    UserFriend firstrecord = listBox1.SelectedItem as UserFriend;
+                    int id = firstrecord.SecondUserId;
+                    UserFriend secondrecord = db.UserFriends.Where(x => x.FirstUserId == id && x.SecondUserId == user.id).FirstOrDefault();
+                    firstrecord = db.UserFriends.Where(x => x.id == firstrecord.id).FirstOrDefault();
+                    db.UserFriends.Remove(firstrecord);
+                    db.UserFriends.Remove(secondrecord);
+                    db.SaveChanges();
+                }
+                if (flag == 2)
+                {
+                    UserQuery delete = listBox1.SelectedItem as UserQuery;
+                    db.UserQuerys.Remove(db.UserQuerys.Where(x => x.id == delete.id).FirstOrDefault());
+                    db.SaveChanges();
+                }
             }
-            userfriends.Remove(l);
-            AddToFriends(user, userfriends);
-            List<string> list = l.Friends.Split().ToList();
-            list.Remove(user.id.ToString());
-            string k = null;
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (i == list.Count - 1) k += list[i];
-                else k += list[i] + " ";
-            }
-            l.Friends = k;
-            db.SaveChanges();
             Update();
-            
         }
 
         private void showall_Click(object sender, EventArgs e)
@@ -105,7 +87,7 @@ namespace CRM
             addbutton.Enabled = true;
             Update();
         }
-        void Update()
+        void OldUpdate()
         {
             using (ApplicationContext context = new ApplicationContext())
             {
@@ -139,6 +121,30 @@ namespace CRM
                         foreach (string s in l) userquerys.Add(context.Users.Where(x => x.id.ToString() == s).FirstOrDefault());
                         listBox1.DataSource = userquerys;
                     }
+                }
+            }
+        }
+        void Update()
+        {
+            using (ApplicationContext context = new ApplicationContext())
+            {
+                listBox1.DataSource = null;
+                if (flag == 0)
+                {
+                    List<User> users = context.Users.ToList();
+                    users.Remove(context.Users.Where(x => x.id == user.id).FirstOrDefault());
+                    if (textBox1.Text != "") users = users.FindAll(x => x.Login.ToString().Contains(textBox1.Text));
+                    listBox1.DataSource = users;
+                }
+                if (flag == 1)
+                {
+                    List<UserFriend> userFriends = context.UserFriends.Where(x => x.FirstUserId == user.id).ToList();
+                    listBox1.DataSource = userFriends;
+                }
+                if (flag == 2)
+                {
+                    List<UserQuery> userQuerys = context.UserQuerys.Where(x => x.TargetId == user.id).ToList();
+                    listBox1.DataSource = userQuerys;
                 }
             }
         }
