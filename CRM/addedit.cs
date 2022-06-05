@@ -86,12 +86,9 @@ namespace CRM
             TaskSortBox.SelectedIndex = 0;
             if (ss != null)
             {
-                List<TaskUser> check = db.TaskUsers.Where(x => x.TaskId == ss.id).ToList();
-                check = check.FindAll(x => x.UserId == -1);
-                if (check != null)
-                {
-                    return;
-                }
+                TaskUser check = db.TaskUsers.Where(x => x.TaskId == ss.id && x.UserId == -1).FirstOrDefault();
+                TaskUser check2 = taskusers.Where(x => x.UserId== -1).FirstOrDefault();
+                if (check != null || check2 != null) return;
             }
             flag = 0;
             TaskTab.TabPages.Add(UsersPage);
@@ -114,12 +111,11 @@ namespace CRM
 
         private void allusersbutton_Click(object sender, EventArgs e)
         {
-            List<TaskUser> check = db.TaskUsers.Where(x => x.TaskId == -1).ToList();
-            check = check.FindAll(x => x.UserId == -1);
-            if (check != null)
-            {
-                return;
-            }
+            Clean();
+            TaskUser checklist = taskusers.Where(x => x.UserId == -1).FirstOrDefault();
+            TaskUser checkdb = null;
+            if (ss != null) checkdb = db.TaskUsers.Where(x => x.TaskId == ss.id && x.UserId == -1).FirstOrDefault();
+            if (checkdb != null || checklist != null) return;
             TaskUser add = new TaskUser(-1, -1);
             if (ss != null)
             {
@@ -160,7 +156,7 @@ namespace CRM
                     {
                         List<User> allUsers = context.Users.ToList();
                         if (UsersBox.Text != "") allUsers = allUsers.FindAll(x => x.Login.Contains(UsersBox.Text));
-                        allUsers.Remove(user);
+                        allUsers.Remove(context.Users.Where(x => x.id == user.id).FirstOrDefault());
                         UsersListBox.DataSource = allUsers;
                     }
                 }
@@ -189,8 +185,12 @@ namespace CRM
             User tempuser = UsersListBox.SelectedItem as User;
             if (taskusers.Where(x => x.UserId == tempuser.id).FirstOrDefault() != null) return;
             TaskUser task = new TaskUser(-1, tempuser.id);
+            if (ss != null)
+            {
+                task.TaskId = ss.id;
+                db.TaskUsers.Add(task);
+            }
             taskusers.Add(task);
-            if (ss != null) db.TaskUsers.Add(task);
         }
 
         private void CleanAll_Click(object sender, EventArgs e)
@@ -213,7 +213,14 @@ namespace CRM
 
         private void CleanAllUsersButton_Click(object sender, EventArgs e)
         {
-            maintaskusers = "";
+            Clean();
+        }
+        void Clean()
+        {
+            if (ss == null) return;
+            List<TaskUser> list = db.TaskUsers.Where(x => x.TaskId == ss.id).ToList();
+            foreach (TaskUser y in list) db.TaskUsers.Remove(db.TaskUsers.Where(x => x.id == y.id).FirstOrDefault());
+            db.SaveChanges();
         }
 
         private void TaskSortBox_SelectedIndexChanged(object sender, EventArgs e)

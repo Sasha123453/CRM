@@ -21,8 +21,6 @@ namespace CRM
             db = new ApplicationContext();
             LoginControl.TabPages.Remove(RegistrationPage);
             User slowfix = db.Users.Where(x => x.Login == "login").FirstOrDefault();
-            slowfix.Password = GetHash("admin");
-            db.SaveChanges();
         }
 
         private void Form1_Load(object sender, EventArgs e)
